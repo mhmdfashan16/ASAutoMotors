@@ -1,4 +1,4 @@
-// controllers/promoController.js
+// controllers/promoController.js this endpoint helps to update the promotion for the product 
 import Promotion from '../models/Promotion.js';
 
 export const getPromotions = async (req, res) => {

@@ -48,11 +48,11 @@ app.use(express.urlencoded({ extended: true }));
 app.get('/', (req,res)=> res.send("API is Working"));
 
 app.use('/api/auth',authRouter);
-app.use('/api/admin',adminRouter);
-app.use('/api/product',productRouter);
+app.use('/api/admin',adminRouter);//this route is used for admin side usages
+app.use('/api/product',productRouter); //this route is used for CRUD operations of products
 app.use('/api/chat', chatRouter);
 app.use('/api/inquiry', inquiryRouter)
-app.use('/api/promo',promoRouter)
+app.use('/api/promo',promoRouter) //this route is used to check the promo
 
 
 

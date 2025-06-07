@@ -22,7 +22,7 @@ try{
 
 };
 
-//Admin login page URL : /api/admin/login
+//Admin login page URL : /api/admin/login this endpoint uses the admin to login and checks the password and username as well
 export const login = async (req, res) => {
 
   try{
@@ -55,7 +55,7 @@ export const login = async (req, res) => {
  
 };
 
-//Admin Logout URL=> /api/admin/logout
+//Admin Logout URL=> /api/admin/logout this endpoint helps the admin to logout from the dashboard
 export const logout = async(req,res)=>{
     try{
         res.clearCookie('adminToken');

@@ -1,6 +1,7 @@
 // models/Promotion.js
 import mongoose from 'mongoose';
 
+//this is for the promotion schema which saves and calculates the expiry date of the promotion date as well
 const promotionSchema = new mongoose.Schema({
   title: {type: String, required:true},
   description: {type: String, required:true},

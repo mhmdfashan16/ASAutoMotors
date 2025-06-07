@@ -1,6 +1,7 @@
 // models/User.js
 import mongoose from 'mongoose';
 
+//this is the schema for the user to save the password and username in the database
 const userSchema = new mongoose.Schema({
   name: { type: String, required: true },
   email: { type: String, unique: true, required: true },

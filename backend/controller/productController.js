@@ -2,11 +2,10 @@
 import Product from '../models/Product.js';
 import {cloudinary} from '../config/cloudinary.js';
 
+//this is to add product to the front end where the controlls the post req
 export const AddProduct = async (req, res) => {
   try {
-    console.log("req.body:", req.body);
-    console.log("req.files:", req.files);
-
+    
     const productData = JSON.parse(req.body.productData);
     const images = req.files?.images;
 
@@ -28,15 +27,13 @@ export const AddProduct = async (req, res) => {
     res.status(201).json({ success: true, message: "Product Added" });
 
   } catch (error) {
-    console.error("Backend error:", error); // 👈 This line helps debug
+    console.error("Backend error:", error); // This line helps debug the error pops up when needed
     res.status(500).json({ success: false, message: error.message });
   }
 };
 
 export const AddProductt = async (req, res) => {
   try {
-    console.log("req.body:", req.body);
-    console.log("req.files:", req.files); // should be populated now
 
     const productData = JSON.parse(req.body.productData);
     const images = req.files;
@@ -63,7 +60,7 @@ export const AddProductt = async (req, res) => {
   }
 };
 
-//Addproduct : /api/product/add
+//Addproduct : /api/product/add this api endpoint to add product to the database
 export const addProduct = async(req, res)=>{
 
     try{
@@ -86,7 +83,7 @@ export const addProduct = async(req, res)=>{
 }
 
 
-
+//this is to get all the products from the databse 
 export const getProducts = async (req, res) => {
   try{
       const products = await Product.find();
@@ -97,7 +94,7 @@ export const getProducts = async (req, res) => {
 
 };
 
-//search the products
+//search the products from the databse
 export const searchProducts = async (req, res) => {
   try {
     const { keyword } = req.body;
@@ -110,7 +107,7 @@ export const searchProducts = async (req, res) => {
   }
 };
 
-//for delete the product
+//for delete the product from the database 
 export const deleteProduct = async (req, res) => {
   try {
     const productId = req.params.id;
