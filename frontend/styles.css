@@ -202,6 +202,26 @@ h1, h2, h3 {
   text-decoration: underline;
 }
 
+/* About Section */
+#about {
+  padding: 60px 10%;
+  background: #272727;
+}
+
+.about-section h3 {
+  margin-top: 30px;
+  font-size: 1.5rem;
+  color: #f39c12;
+}
+
+.about-section ul {
+  color: white;
+}
+
+.about-section p {
+ 
+  color: white;
+}
 
 /* Product Section */
 #products {
