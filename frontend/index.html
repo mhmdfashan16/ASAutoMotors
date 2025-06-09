@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>AS Auto Motors - Home</title>
+  <link rel="stylesheet" href="styles.css" />
+  <link rel="icon" href="images/AS.png">
+</head>
+<body>
+
+  <!-- Navigation -->
+  <nav class="navbar">
+  <div class="logo-container">
+    <img src="images/AS.png" alt="Shop Logo" class="shop-logo">
+    <div class="shop-name">
+    <span class="as-highlight">AS </span> <span class="Auto-highlights"> Auto Motors </span>
+  </div> 
+  </div>
+
+  <ul class="nav-links">
+    <li><a href="index.html">Home</a></li>
+    <li><a href="about.html"> About Us</a></li>
+    <li><a href="products.html">Products</a></li>
+    <li><a href="contact.html">Contact Us</a></li>
+  </ul>
+</nav>
+
+  <!-- Hero Section -->
+  <header class="hero">
+    <div class="hero-left">
+      <h1>Discover our <span class="highlight">latest models</span> and <span class="highlight">offers</span>.</h1>
+      <p> <span class="hero_p_heighlights"> Life’s better on <span class="hero_twowheels_heighlights"> two wheels </span> - start your ride here! </span> </p>
+    </div>
+    <div class="hero-right">
+  <!-- Bike images -->
+</div>
+
+  </header>
+
+  <!-- ChatBot -->
+<div class="chatbot" id="chatbot" style="display:none;">
+  <div class="chatbot-header">
+    ChatBot
+    <button onclick="toggleChatbot()">✖</button>
+  </div>
+  <div class="chatbot-messages" id="chatbotMessages"></div>
+  <input type="text" id="chatbotInput" placeholder="Type your message..." onkeypress="handleKey(event)">
+</div>
+<button class="open-chatbot-btn" onclick="toggleChatbot()">💬</button>
+
+  <!-- Footer -->
+  <footer class="custom-footer">
+  <div class="footer-left">
+    <p class="quote">❝ If you're looking to buy or sell used bike then AS Auto Motors is the answer. You're sure to find the perfect Motorcycles on AS Auto Motors. ❞</p>
+  </div>
+
+  <div class="footer-right">
+    <h3>Our Office</h3>
+    <p>No 181, Navalar Road, Jaffna, Sri Lanka</p>
+    <p>Tele: +94 77 039 3697</p>
+    <p>Mail: ikman5147gmail.com</p>
+    <p class="copyright">&copy; 2025 AS Auto Motors. All rights reserved.</p>
+  </div>
+</footer>
+
+
+  <!-- JavaScript -->
+  <script src="chatbot.js"></script>
+
+<script>
+  const images = [
+  "Home images/bike-hero.png",
+  "Home images/bike1.png",
+  "Home images/bike2.png",
+  "Home images/bike3.png"
+];
+
+let index = 0;
+const container = document.querySelector(".hero-right");
+
+function changeImage() {
+  const oldImage = document.getElementById("hero-image");
+  if (oldImage) oldImage.remove();
+
+  const img = document.createElement("img");
+  img.src = images[index];
+  img.id = "hero-image";
+  img.alt = "Hero Bike";
+  container.appendChild(img);
+
+  index = (index + 1) % images.length;
+}
+
+changeImage();
+setInterval(changeImage, 6000);
+</script>
+
+</body>
+</html>

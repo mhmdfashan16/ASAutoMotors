@@ -1,0 +1,488 @@
+@import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@600&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600&display=swap'); /*Auto Motors */
+@import url('https://fonts.googleapis.com/css2?family=Satisfy&display=swap'); /* hero-p */
+
+/* General */
+body {
+  margin: 0;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  line-height: 1.6;
+  background: #272727;
+  color: #333;
+}
+
+h1, h2, h3 {
+  color: #111;
+}
+
+.as-highlight {
+  font-family: 'Orbitron', sans-serif;
+  font-size: 1.8rem;
+  color: #f39c12;
+  text-transform: uppercase;
+}
+
+.Auto-highlights{
+  font-family: 'Playfair Display', serif;
+  font-size: 2rem;
+  color: #f39c12;
+  letter-spacing: 2px;
+}
+
+
+/* Hero Section */
+.hero {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: #272727;
+  padding: 50px 10%;
+  border-bottom: 1px solid #ddd;
+}
+
+.hero-left h1 {
+  font-size: 2.5rem;
+  margin-bottom: 1rem;
+  margin-top: 6px;
+  color: white;
+}
+
+.hero_p_heighlights{
+  font-family: 'Satisfy', cursive;
+  font-size: 1.8rem;
+  color: #dcdada;
+}
+
+.hero_twowheels_heighlights{
+  font-family: 'Satisfy', cursive;
+  font-size: 1.8rem;
+  color: #a3a045;
+}
+
+.hero-right {
+  width: 100%;
+  max-width: 400px;      /* Limit max width */
+  height: 400px;         /* Fixed height for all images */
+  background-color: #272727; /* Light gray background */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 2rem;
+  overflow: hidden;
+  position: relative;
+  margin: auto;
+}
+
+/* Image inside hero-right */
+#hero-image {
+  width: 100%;
+  height: 100%;
+  object-fit: contain; /* Makes sure the image scales without cropping */
+  border-radius: 1rem;
+  animation: slideInRight 5s ease forwards;
+  position: absolute;
+  opacity: 0;
+}
+
+/* Hover effect */
+#hero-image:hover {
+  transform: scale(1.05);
+  transition: transform 0.3s ease;
+}
+
+/* Slide-in animation */
+@keyframes slideInRight {
+  0% {
+    transform: translateX(100%);
+    opacity: 0;
+  }
+  100% {
+    transform: translateX(0%);
+    opacity: 1;
+  }
+}
+
+.custom-footer {
+  background: #000;
+  color: #fff;
+  padding: 30px 10%;
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  flex-wrap: wrap;
+  gap: 150px;
+}
+
+.footer-left {
+  flex: 1;
+  min-width: 200px;
+}
+
+.footer-right {
+  flex: 2;
+  min-width: 250px;
+}
+
+.quote {
+  font-style: italic;
+  font-size: 1.5rem;
+  color: #eeedec;
+  margin: 0;
+}
+
+.footer-right h3 {
+  margin-bottom: 10px;
+  color: #f39c12;
+  margin-left: 300px;
+}
+
+.footer-right p {
+  margin: 4px 0;
+  font-size: 0.95rem;
+  margin-left: 300px;
+}
+
+.footer-right .copyright {
+  margin-top: 15px;
+  font-size: 0.85rem;
+  margin-left: 300px;
+}
+
+
+/* Navigation */
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem 2rem;
+  background-color: #000; /* or use #ffffff if you prefer white */
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+}
+
+.logo-container {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.shop-logo {
+  width: 80px;
+  height: 80px;
+  object-fit: contain;
+}
+
+.shop-name {
+  font-size: 1.5rem;
+  font-weight: 600;
+  color: #f39c12; /* gold/yellow */
+  font-family: 'Poppins', sans-serif;
+}
+
+/* Nav Links */
+.nav-links {
+  list-style: none;
+  display: flex;
+  gap: 2rem;
+  margin: 0;
+  padding: 0;
+}
+
+.nav-links li a {
+  color: #fff;
+  text-decoration: none;
+  font-weight: bold;
+  transition: color 0.3s;
+}
+
+.nav-links li a:hover {
+  color: #f39c12;
+  text-decoration: underline;
+}
+
+
+/* Product Section */
+#products {
+  max-width: 1100px;
+  margin: 40px auto;
+  padding: 0 20px;
+}
+
+#products h2 {
+  text-align: center;
+  margin-bottom: 30px;
+  font-size: 2.2rem;
+  color: #333;
+}
+
+.filters {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 15px;
+  justify-content: center;
+  margin-bottom: 40px;
+}
+
+.filters .filter-input {
+  flex: 1 1 180px;
+  padding: 10px 15px;
+  font-size: 1rem;
+  border: 2px solid #ddd;
+  border-radius: 6px;
+  transition: border-color 0.3s ease;
+}
+
+.filters .filter-input:focus {
+  outline: none;
+  border-color: #f39c12;
+  box-shadow: 0 0 5px #f39c12;
+}
+
+.filters .filter-btn {
+  padding: 10px 25px;
+  background-color: #f39c12;
+  color: white;
+  font-size: 1rem;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.filters .filter-btn:hover {
+  background-color: #d87e0a;
+  box-shadow: 0 4px 8px rgba(243, 156, 18, 0.6);
+}
+
+.no-match-message {
+  color: white;   /* Red-orange */
+  font-size: 1.1rem;
+  text-align: center;
+  padding: 10px;
+}
+
+
+/* Product List Grid */
+.product-list {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 30px;
+  padding: 20px;
+}
+
+.bike-card {
+  background-color: #fff;
+  border: 1px solid #ddd;
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+  transition: box-shadow 0.3s ease;
+  text-align: center;
+  padding-bottom: 20px;
+}
+
+.bike-card:hover {
+   transform: translateY(-5px);
+}
+
+.bike-card img {
+  width: 100%;
+  height: 400px;
+  object-fit: cover;
+  border-bottom: 1px solid #ddd;
+}
+
+.bike-card h3 {
+  margin: 15px 0 8px;
+  font-size: 1.2rem;
+  color: #222;
+}
+
+.bike-card p {
+  font-size: 1rem;
+  color: #555;
+}
+
+.bike-card button {
+  margin-top: 10px;
+  padding: 8px 16px;
+  border: none;
+  background-color: #f39c12;
+  color: rgb(10, 10, 10);
+  cursor: pointer;
+  border-radius: 5px;
+  font-size: 1rem;
+  font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+  transition: background-color 0.3s ease;
+}
+
+.bike-card button:hover {
+  background-color: #f39c12;
+}
+
+.bike-details {
+  margin-top: 10px;
+  text-align: left;
+  padding: 0 15px;
+  font-size: 0.95rem;
+  color: #444;
+}
+
+
+/* Chatbot */
+.chatbot {
+  position: fixed;
+  bottom: 60px;
+  right: 20px;
+  width: 300px;
+  max-height: 400px;
+  background: #fff;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+  display: none;
+  flex-direction: column;
+  overflow: hidden;
+  font-family: Arial, sans-serif;
+  z-index: 1000;
+}
+
+.chatbot.active {
+  display: flex;
+}
+
+.chatbot-header {
+  background-color: #f39c12;
+  color: white;
+  padding: 10px 15px;
+  font-weight: bold;
+  font-size: 16px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-top-left-radius: 8px;
+  border-top-right-radius: 8px;
+}
+
+.chatbot-header button {
+  background: transparent;
+  border: none;
+  color: white;
+  font-size: 18px;
+  cursor: pointer;
+  padding: 0 8px;
+  line-height: 1;
+  transition: color 0.3s ease;
+}
+
+.chatbot-header button:hover {
+  color: #ff4;
+}
+
+.chatbot-messages {
+  flex: 1;
+  padding: 10px;
+  overflow-y: auto;
+  background: #f9f9f9;
+  font-size: 14px;
+  line-height: 1.4;
+}
+
+.message {
+  margin-bottom: 10px;
+  padding: 8px 12px;
+  border-radius: 15px;
+  max-width: 80%;
+  word-wrap: break-word;
+}
+
+.message.user {
+  background-color: #f39c12;
+  color: white;
+  align-self: flex-end;
+  border-bottom-right-radius: 0;
+}
+
+.message.bot {
+  background-color: #e4e6eb;
+  color: #333;
+  align-self: flex-start;
+  border-bottom-left-radius: 0;
+}
+
+#chatbotForm {
+  display: flex;
+  border-top: 1px solid #ccc;
+  padding: 8px;
+  background: #fff;
+}
+
+#chatbotInput {
+  flex: 1;
+  padding: 8px 12px;
+  border: 1px solid #ccc;
+  border-radius: 20px;
+  font-size: 14px;
+  outline: none;
+}
+
+#chatbotInput:focus {
+  border-color: #f39c12;
+}
+
+#chatbotForm button {
+  background-color: #f39c12;
+  border: none;
+  color: white;
+  padding: 0 15px;
+  margin-left: 8px;
+  border-radius: 20px;
+  cursor: pointer;
+  font-size: 14px;
+  transition: background-color 0.3s ease;
+}
+
+#chatbotForm button:hover {
+  background-color: #f39c12;
+}
+
+/* Open Chatbot Button */
+@keyframes pulse {
+  0% {
+    box-shadow: 0 0 0 0 rgba(243, 156, 18, 0.7);
+  }
+  70% {
+    box-shadow: 0 0 0 10px rgba(243, 156, 18, 0);
+  }
+  100% {
+    box-shadow: 0 0 0 0 rgba(243, 156, 18, 0);
+  }
+}
+
+.open-chatbot-btn {
+  position: fixed;
+  bottom: 30px;
+  right: 30px;
+  width: 65px;
+  height: 65px;
+  background: transparent;
+  border: 3px solid #f39c12;
+  border-radius: 50%;
+  color: #f39c12;
+  font-size: 30px;
+  cursor: pointer;
+  animation: pulse 2s infinite;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.open-chatbot-btn:hover {
+  background-color: #f39c12;
+  color: white;
+  animation: none;
+  box-shadow: 0 0 15px rgba(243, 156, 18, 0.9);
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
