@@ -5,6 +5,6 @@ import { addInquiry, authenticate, createInquiry } from '../controller/inquiryCo
 const inquiryRouter = express.Router();
 
 inquiryRouter.post('/',authenticate,addInquiry);
-inquiryRouter.post('/add',authenticate, createInquiry);
+// inquiryRouter.post('/add',authenticate, createInquiry);
 
 export default inquiryRouter;

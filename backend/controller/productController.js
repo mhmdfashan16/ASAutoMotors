@@ -87,7 +87,13 @@ export const addProduct = async(req, res)=>{
 export const getProducts = async (req, res) => {
   try{
       const products = await Product.find();
-     res.status(200).json({ success: true, products });
+      if(!products){
+        return res.json({
+          success:true,
+          message:"There is no products exists"
+        })
+      }
+     res.status(200).json({ success: true, message:"Display products", products });
   }catch(error){
     res.json({success:false, message:error.message});
   }
@@ -98,6 +104,12 @@ export const getProducts = async (req, res) => {
 export const searchProducts = async (req, res) => {
   try {
     const { keyword } = req.body;
+    if(!keyword){
+      return res.json({
+        success:false,
+        message:"type anything about products"
+      })
+    }
     const products = await Product.find({
       name: { $regex: keyword, $options: 'i' },
     });
