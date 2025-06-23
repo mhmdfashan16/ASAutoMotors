@@ -13,8 +13,24 @@ try{
         const products = await Product.find();
         const inquiries = await Inquiry.find();
         const chats = await Chat.find();
+    if(!products){
+      return(
+        res.json({
+          success:false,
+          message:"there is no products exist"
+        })
+      )
+    }
+    if(!inquiries) return res.json({
+      success:false,
+      message:"No Inquiries filed"
+    })
+    if(!chats) return (res.json({
+      success:false,
+      message:"No chats history available"
+    }))
 
-    return res.json({ products, inquiries, chats });
+    return res.json({success:true, message:"Displays products, inquries and chats", products, inquiries, chats });
 
 }catch(error){
     res.json({success:false, message:error.message});
@@ -58,8 +74,10 @@ export const login = async (req, res) => {
 //Admin Logout URL=> /api/admin/logout this endpoint helps the admin to logout from the dashboard
 export const logout = async(req,res)=>{
     try{
+     
         res.clearCookie('adminToken');
         res.json({ success: true, message: 'Logged out successfully' });
+      
     }catch(error){
       res.json({success:false, message:error.message});
 

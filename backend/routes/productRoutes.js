@@ -1,18 +1,24 @@
 // routes/productRoutes.js
 import express from 'express';
 import { authenticate, authorizeAdmin } from '../middleware/auth.js';
-import { addProduct, AddProduct, AddProductt, deleteProduct, getProducts, searchProducts } from '../controller/productController.js';
+import { 
+    getProducts, 
+    getProduct,
+    addProduct, 
+    updateProduct, 
+    deleteProduct 
+} from '../controller/productController.js';
 import upload from '../config/multer.js';
 
+const router = express.Router();
 
-const productRouter = express.Router();
+// Public routes
+router.get('/', getProducts);
+router.get('/:id', getProduct);
 
-//this is used to add product and list all the product and search then can also remove it as well
+// Admin protected routes
+router.post('/add', authenticate, authorizeAdmin, upload.single('image'), addProduct);
+router.put('/:id', authenticate, authorizeAdmin, upload.single('image'), updateProduct);
+router.delete('/:id', authenticate, authorizeAdmin, deleteProduct);
 
-productRouter.post('/add', upload.array("images",5),authorizeAdmin ,addProduct);
-productRouter.get('/list', getProducts);
-productRouter.get('/search', searchProducts);
-productRouter.delete('/remove/:id', authorizeAdmin, deleteProduct);
-
-
-export default productRouter;
+export default router;

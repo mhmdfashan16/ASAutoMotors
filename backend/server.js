@@ -19,20 +19,43 @@ import promoRouter from './routes/promoRoutes.js';
 
 dotenv.config();
 const app = express();
-const port = process.env.PORT || 4000;
+const port = process.env.PORT || 5000;
 
 await connectDB();
 // await connectCloudinary();
 
-//allow multiple origins
-const allowedOrigins = ['http://localhost:5173'];
+// CORS configuration
+app.use(cors({
+    origin: function(origin, callback) {
+        // Allow requests with no origin (like mobile apps, curl, file system)
+        if (!origin) {
+            return callback(null, true);
+        }
+        
+        const allowedOrigins = [
+            'http://127.0.0.1:5500',
+            'http://localhost:5500',
+            'null'
+        ];
+        
+        if (allowedOrigins.indexOf(origin) !== -1) {
+            callback(null, origin);
+        } else {
+            callback(new Error('Not allowed by CORS'));
+        }
+    },
+    credentials: true,
+    methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
+    allowedHeaders: ['Content-Type', 'Authorization', 'Accept', 'Cookie'],
+    exposedHeaders: ['Set-Cookie'],
+    preflightContinue: false,
+    optionsSuccessStatus: 204
+}));
 
-
-//Middleware
+// Middleware
 app.use(express.json());
 app.use(cookieParser());
-app.use(cors({origin: allowedOrigins, credentials:true}));
-
+app.use(express.urlencoded({ extended: true }));
 
 // app.use(
 //    fileUpload({
@@ -40,10 +63,6 @@ app.use(cors({origin: allowedOrigins, credentials:true}));
 //         tempFileDir:'/tmp',
 //     })
 // )
-
-app.use(express.json());
-app.use(express.urlencoded({ extended: true }));
-
 
 app.get('/', (req,res)=> res.send("API is Working"));
 
@@ -54,9 +73,15 @@ app.use('/api/chat', chatRouter);
 app.use('/api/inquiry', inquiryRouter)
 app.use('/api/promo',promoRouter) //this route is used to check the promo
 
-
-
-
+// Error handling middleware
+app.use((err, req, res, next) => {
+    console.error(err.stack);
+    res.status(500).json({
+        success: false,
+        message: 'Something went wrong!',
+        error: process.env.NODE_ENV === 'development' ? err.message : undefined
+    });
+});
 
 app.listen(port, ()=>{
     console.log(`server is running on http://localhost:${port}`);

@@ -9,4 +9,5 @@ const promoRouter = express.Router();
 promoRouter.get('/', getPromotions);
 promoRouter.post('/add',authenticate,authorizeAdmin ,addPromotion);
 
+
 export default promoRouter;
