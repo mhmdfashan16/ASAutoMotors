@@ -2,137 +2,149 @@
 import Product from '../models/Product.js';
 import {cloudinary} from '../config/cloudinary.js';
 
-//this is to add product to the front end where the controlls the post req
-export const AddProduct = async (req, res) => {
-  try {
-    
-    const productData = JSON.parse(req.body.productData);
-    const images = req.files?.images;
-
-    if (!images) {
-      return res.status(400).json({ success: false, message: "No images uploaded" });
-    }
-
-    const imageArray = Array.isArray(images) ? images : [images];
-    const imageUrls = await Promise.all(
-      imageArray.map(async (img) => {
-        const result = await cloudinary.uploader.upload(img.path, {
-          resource_type: 'image',
-        });
-        return result.secure_url;
-      })
-    );
-
-    await Product.create({ ...productData, image: imageUrls });
-    res.status(201).json({ success: true, message: "Product Added" });
-
-  } catch (error) {
-    console.error("Backend error:", error); // This line helps debug the error pops up when needed
-    res.status(500).json({ success: false, message: error.message });
-  }
-};
-
-export const AddProductt = async (req, res) => {
-  try {
-
-    const productData = JSON.parse(req.body.productData);
-    const images = req.files;
-
-    if (!images || images.length === 0) {
-      return res.status(400).json({ success: false, message: "No images uploaded" });
-    }
-
-    const imageUrls = await Promise.all(
-      images.map(async (img) => {
-        const result = await cloudinary.uploader.upload(img.path, {
-          resource_type: 'image',
-        });
-        return result.secure_url;
-      })
-    );
-
-    await Product.create({ ...productData, image: imageUrls });
-    res.status(201).json({ success: true, message: "Product Added" });
-
-  } catch (error) {
-    console.error("Backend error:", error);
-    res.status(500).json({ success: false, message: error.message });
-  }
-};
-
-//Addproduct : /api/product/add this api endpoint to add product to the database
-export const addProduct = async(req, res)=>{
-
-    try{
-        let productData = JSON.parse(req.body.productData);
-        const images = req.files;
-        let imagesUrl = await Promise.all(
-            images.map(async(item)=>{
-                let result = await cloudinary.uploader.upload(item.path,
-                    {resource_type:'image'})
-                return result.secure_url;
-            })
-        )
-        await Product.create({...productData, image:imagesUrl})
-        res.json({success:true, message:"Product added"});
-
-    }catch(error){
-        console.log(error.message);
-        return res.json({success:false, message:error.message});
-    }
-}
-
-
-//this is to get all the products from the databse 
+// Get all products
 export const getProducts = async (req, res) => {
-  try{
-      const products = await Product.find();
-      if(!products){
-        return res.json({
-          success:true,
-          message:"There is no products exists"
-        })
-      }
-     res.status(200).json({ success: true, message:"Display products", products });
-  }catch(error){
-    res.json({success:false, message:error.message});
-  }
-
-};
-
-//search the products from the databse
-export const searchProducts = async (req, res) => {
-  try {
-    const { keyword } = req.body;
-    if(!keyword){
-      return res.json({
-        success:false,
-        message:"type anything about products"
-      })
+    try {
+        const products = await Product.find().sort({ createdAt: -1 });
+        res.json({ success: true, products });
+    } catch (error) {
+        console.error('Error getting products:', error);
+        res.status(500).json({ success: false, message: 'Error getting products' });
     }
-    const products = await Product.find({
-      name: { $regex: keyword, $options: 'i' },
-    });
-    res.status(200).json({ success: true, products });
-  } catch (error) {
-    res.status(500).json({ success: false, message: error.message });
-  }
 };
 
-//for delete the product from the database 
+// Get single product
+export const getProduct = async (req, res) => {
+    try {
+        const { id } = req.params;
+        const product = await Product.findById(id);
+        
+        if (!product) {
+            return res.status(404).json({ 
+                success: false, 
+                message: 'Product not found' 
+            });
+        }
+
+        res.json({ 
+            success: true, 
+            product 
+        });
+    } catch (error) {
+        console.error('Error getting product:', error);
+        res.status(500).json({ 
+            success: false, 
+            message: 'Error getting product' 
+        });
+    }
+};
+
+// Add new product
+export const addProduct = async (req, res) => {
+    try {
+        console.log('Request body:', req.body);
+        console.log('Request file:', req.file);
+
+        const { name, brand, model, description, price } = req.body;
+        
+        // Handle image upload to Cloudinary
+        let imageUrl = '';
+        if (req.file) {
+            const result = await cloudinary.uploader.upload(req.file.path, {
+                folder: 'as_auto_motors',
+                use_filename: true
+            });
+            imageUrl = result.secure_url;
+        }
+
+        const product = new Product({
+            name,
+            brand,
+            model,
+            description,
+            price,
+            image: imageUrl
+        });
+
+        await product.save();
+        res.status(201).json({ success: true, product });
+    } catch (error) {
+        console.error('Error adding product:', error);
+        res.status(500).json({ 
+            success: false, 
+            message: error.message || 'Error adding product' 
+        });
+    }
+};
+
+// Update product
+export const updateProduct = async (req, res) => {
+    try {
+        const { id } = req.params;
+        const { name, brand, model, description, price } = req.body;
+        
+        const product = await Product.findById(id);
+        if (!product) {
+            return res.status(404).json({ success: false, message: 'Product not found' });
+        }
+
+        // Handle image upload to Cloudinary
+        if (req.file) {
+            const result = await cloudinary.uploader.upload(req.file.path, {
+                folder: 'as_auto_motors',
+                use_filename: true
+            });
+            product.image = result.secure_url;
+        }
+
+        product.name = name || product.name;
+        product.brand = brand || product.brand;
+        product.model = model || product.model;
+        product.description = description || product.description;
+        product.price = price || product.price;
+
+        await product.save();
+        res.json({ success: true, product });
+    } catch (error) {
+        console.error('Error updating product:', error);
+        res.status(500).json({ success: false, message: 'Error updating product' });
+    }
+};
+
+// Delete product
 export const deleteProduct = async (req, res) => {
-  try {
-    const productId = req.params.id;
-
-    const deletedProduct = await Product.findByIdAndDelete(productId);
-
-    if (!deletedProduct) {
-      return res.status(404).json({ success: false, message: 'Product not found' });
+    try {
+        const { id } = req.params;
+        const product = await Product.findByIdAndDelete(id);
+        if (!product) {
+            return res.status(404).json({ success: false, message: 'Product not found' });
+        }
+        res.json({ success: true, message: 'Product deleted successfully' });
+    } catch (error) {
+        console.error('Error deleting product:', error);
+        res.status(500).json({ success: false, message: 'Error deleting product' });
     }
+};
 
-    res.status(200).json({ success: true, message: 'Product deleted successfully' });
-  } catch (error) {
-    console.error('Delete error:', error);
-    res.status(500).json({ success: false, message: error.message });
-  }
+// Search products
+export const searchProducts = async (req, res) => {
+    try {
+        const { query } = req.query;
+        const products = await Product.find({
+            $or: [
+                { name: { $regex: query, $options: 'i' } },
+                { description: { $regex: query, $options: 'i' } },
+                { brand: { $regex: query, $options: 'i' } }
+            ]
+        });
+        res.json({
+            success: true,
+            products
+        });
+    } catch (error) {
+        res.status(500).json({
+            success: false,
+            message: error.message
+        });
+    }
 };

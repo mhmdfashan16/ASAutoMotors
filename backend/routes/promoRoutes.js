@@ -1,13 +1,17 @@
 // routes/promoRoutes.js
 import express from 'express';
-import { addPromotion, getPromotions } from '../controller/promoController.js';
 import { authenticate, authorizeAdmin } from '../middleware/auth.js';
+import { 
+    getPromos, 
+    addPromo, 
+    deletePromo 
+} from '../controller/promoController.js';
 
-const promoRouter = express.Router();
+const router = express.Router();
 
-//this is used to get all the promotions
-promoRouter.get('/', getPromotions);
-promoRouter.post('/add',authenticate,authorizeAdmin ,addPromotion);
+// Admin protected routes
+router.get('/', authenticate, authorizeAdmin, getPromos);
+router.post('/', authenticate, authorizeAdmin, addPromo);
+router.delete('/:id', authenticate, authorizeAdmin, deletePromo);
 
-
-export default promoRouter;
+export default router;
