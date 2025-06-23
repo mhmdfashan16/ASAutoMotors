@@ -237,119 +237,112 @@ h1, h2, h3 {
   color: #333;
 }
 
-.filters {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 15px;
-  justify-content: center;
-  margin-bottom: 40px;
-}
-
-.filters .filter-input {
-  flex: 1 1 180px;
-  padding: 10px 15px;
-  font-size: 1rem;
-  border: 2px solid #ddd;
-  border-radius: 6px;
-  transition: border-color 0.3s ease;
-}
-
-.filters .filter-input:focus {
-  outline: none;
-  border-color: #f39c12;
-  box-shadow: 0 0 5px #f39c12;
-}
-
-.filters .filter-btn {
-  padding: 10px 25px;
-  background-color: #f39c12;
-  color: white;
-  font-size: 1rem;
-  border: none;
-  border-radius: 6px;
-  cursor: pointer;
-  transition: background-color 0.3s ease, box-shadow 0.3s ease;
-}
-
-.filters .filter-btn:hover {
-  background-color: #d87e0a;
-  box-shadow: 0 4px 8px rgba(243, 156, 18, 0.6);
-}
-
-.no-match-message {
-  color: white;   /* Red-orange */
-  font-size: 1.1rem;
-  text-align: center;
-  padding: 10px;
-}
-
-
-/* Product List Grid */
+/* Product List Styles */
 .product-list {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-  gap: 30px;
-  padding: 20px;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 20px;
+    padding: 20px;
 }
 
-.bike-card {
-  background-color: #fff;
-  border: 1px solid #ddd;
-  border-radius: 12px;
-  overflow: hidden;
-  box-shadow: 0 4px 8px rgba(0,0,0,0.1);
-  transition: box-shadow 0.3s ease;
-  text-align: center;
-  padding-bottom: 20px;
+.product-card {
+    background: rgb(190, 190, 190);
+    border-radius: 8px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    overflow: hidden;
+    transition: transform 0.3s ease;
 }
 
-.bike-card:hover {
-   transform: translateY(-5px);
+.product-card:hover {
+    transform: translateY(-5px);
 }
 
-.bike-card img {
-  width: 100%;
-  height: 400px;
-  object-fit: cover;
-  border-bottom: 1px solid #ddd;
+.product-image {
+    width: 100%;
+    height: 200px;
+    overflow: hidden;
 }
 
-.bike-card h3 {
-  margin: 15px 0 8px;
-  font-size: 1.2rem;
-  color: #222;
+.product-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
 }
 
-.bike-card p {
-  font-size: 1rem;
-  color: #555;
+.product-info {
+    padding: 15px;
 }
 
-.bike-card button {
-  margin-top: 10px;
-  padding: 8px 16px;
-  border: none;
-  background-color: #f39c12;
-  color: rgb(10, 10, 10);
-  cursor: pointer;
-  border-radius: 5px;
-  font-size: 1rem;
-  font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
-  transition: background-color 0.3s ease;
+.product-info h3 {
+    margin: 0 0 10px 0;
+    color: #333;
 }
 
-.bike-card button:hover {
-  background-color: #f39c12;
+.product-info .model {
+    color: #666;
+    margin: 5px 0;
 }
 
-.bike-details {
-  margin-top: 10px;
-  text-align: left;
-  padding: 0 15px;
-  font-size: 0.95rem;
-  color: #444;
+.product-info .specs {
+    color: #666;
+    margin: 5px 0;
+    font-size: 0.9em;
 }
 
+.product-info .price {
+    color: #2c3e50;
+    font-weight: bold;
+    font-size: 1.2em;
+    margin: 10px 0 0 0;
+}
+
+/* Filter Styles */
+.filters {
+    display: flex;
+    gap: 10px;
+    padding: 20px;
+    background: rgb(190, 190, 190);
+    border-radius: 8px;
+    margin: 20px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+}
+
+.filter-input {
+    padding: 8px 12px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    flex: 1;
+}
+
+.filter-btn {
+    padding: 8px 20px;
+    background: #2c3e50;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background 0.3s ease;
+}
+
+.filter-btn:hover {
+    background: #34495e;
+}
+
+.error-message {
+    color: #e74c3c;
+    text-align: center;
+    padding: 20px;
+    background: #fde8e8;
+    border-radius: 8px;
+    margin: 20px;
+}
+
+.no-products {
+    text-align: center;
+    color: #666;
+    padding: 20px;
+    grid-column: 1 / -1;
+}
 
 /* Contact Section */
 #contact {

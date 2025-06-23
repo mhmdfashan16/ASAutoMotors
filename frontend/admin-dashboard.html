@@ -1,0 +1,901 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AS Auto Motors - Admin Dashboard</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="icon" href="images/AS.png">
+    <style>
+        .dashboard-container {
+            display: flex;
+            min-height: 100vh;
+        }
+        .sidebar {
+            width: 250px;
+            background: #2c3e50;
+            color: white;
+            padding: 20px;
+        }
+        .sidebar h2 {
+            margin-bottom: 30px;
+            text-align: center;
+        }
+        .sidebar-menu {
+            list-style: none;
+            padding: 0;
+        }
+        .sidebar-menu li {
+            margin-bottom: 10px;
+        }
+        .sidebar-menu a {
+            color: white;
+            text-decoration: none;
+            display: block;
+            padding: 10px;
+            border-radius: 4px;
+        }
+        .sidebar-menu a:hover {
+            background: #34495e;
+        }
+        .main-content {
+            flex: 1;
+            padding: 20px;
+            background: #f5f6fa;
+        }
+        .content-section {
+            display: none;
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+        }
+        .content-section.active {
+            display: block;
+        }
+        /* Form Groups */
+        .form-group {
+            margin-bottom: 15px;
+        }
+        .form-group label {
+            display: block;
+            margin-bottom: 5px;
+        }
+        .form-group input, .form-group textarea, .form-group select {
+            width: 100%;
+            padding: 8px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+        }
+        .btn {
+            padding: 10px 20px;
+            background: #007bff;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        .btn:hover {
+            background: #0056b3;
+        }
+        .product-list, .promo-list {
+            margin-top: 20px;
+        }
+        .product-item, .promo-item {
+            border: 1px solid #ddd;
+            padding: 10px;
+            margin-bottom: 10px;
+            border-radius: 4px;
+        }
+        .products-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 20px;
+            padding: 20px;
+        }
+        .product-card {
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            padding: 15px;
+            transition: transform 0.2s;
+        }
+        .product-card:hover {
+            transform: translateY(-5px);
+        }
+        .product-card img {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+            border-radius: 4px;
+            margin-bottom: 10px;
+        }
+        .product-card h3 {
+            margin: 10px 0;
+            color: #333;
+        }
+        .product-card p {
+            color: #666;
+            margin: 5px 0;
+        }
+        .product-actions {
+            display: flex;
+            gap: 10px;
+            margin-top: 15px;
+        }
+        .product-actions button {
+            padding: 8px 15px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: background-color 0.2s;
+        }
+        .product-actions button:first-child {
+            background-color: #4CAF50;
+            color: white;
+        }
+        .product-actions button:last-child {
+            background-color: #f44336;
+            color: white;
+        }
+        .product-actions button:hover {
+            opacity: 0.9;
+        }
+        .section-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px;
+            border-bottom: 1px solid #eee;
+        }
+        .section-header button {
+            padding: 8px 15px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        .section-header button:hover {
+            opacity: 0.9;
+        }
+        .form-section {
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            margin: 20px;
+        }
+        .form-section h3 {
+            margin-bottom: 20px;
+            color: #333;
+        }
+        .form-actions {
+            display: flex;
+            gap: 10px;
+            margin-top: 20px;
+        }
+        .form-actions button {
+            padding: 10px 20px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-weight: 500;
+        }
+        .form-actions button[type="submit"] {
+            background-color: #4CAF50;
+            color: white;
+        }
+        .form-actions button[type="button"] {
+            background-color: #f44336;
+            color: white;
+        }
+        .form-actions button:hover {
+            opacity: 0.9;
+        }
+        .inquiries-list {
+            padding: 20px;
+        }
+        .inquiry-card {
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            padding: 20px;
+            margin-bottom: 15px;
+        }
+        .inquiry-card h3 {
+            margin: 0 0 10px 0;
+            color: #333;
+        }
+        .inquiry-card p {
+            margin: 5px 0;
+            color: #666;
+        }
+        .inquiry-card .inquiry-actions {
+            display: flex;
+            gap: 10px;
+            margin-top: 15px;
+        }
+        .inquiry-card .inquiry-actions button {
+            padding: 8px 15px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: background-color 0.2s;
+        }
+        .inquiry-card .inquiry-actions button.delete {
+            background-color: #f44336;
+            color: white;
+        }
+        .inquiry-card .inquiry-actions button:hover {
+            opacity: 0.9;
+        }
+    </style>
+</head>
+<body>
+    <div class="dashboard-container">
+        <!-- Sidebar -->
+        <div class="sidebar">
+            <h2>Admin Dashboard</h2>
+            <ul class="sidebar-menu">
+                <li><a href="#" data-section="dashboard">Dashboard Overview</a></li>
+                <li><a href="#" data-section="products">Manage Products</a></li>
+                <li><a href="#" data-section="promotions">Manage Promotions</a></li>
+                <li><a href="#" data-section="inquiries">View Inquiries</a></li>
+                <li><a href="#" id="logoutBtn">Logout</a></li>
+            </ul>
+        </div>
+
+        <!-- Main Content -->
+        <div class="main-content">
+            <!-- Dashboard Overview -->
+            <div id="dashboard" class="content-section active">
+                <div class="dashboard-content">
+                    <div class="content-header">
+                        <h2>Dashboard</h2>
+                        <button onclick="logout()">Logout</button>
+                    </div>
+                    
+                    <div class="dashboard-stats">
+                        <div class="stat-card">
+                            <h3>Total Products</h3>
+                            <p id="totalProducts">Loading...</p>
+                        </div>
+                        <div class="stat-card">
+                            <h3>Total Inquiries</h3>
+                            <p id="totalInquiries">Loading...</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Manage Products -->
+            <div id="products" class="content-section">
+                <div class="section-header">
+                    <h2>Manage Products</h2>
+                    <button onclick="toggleAddProductForm()">Add New Product</button>
+                </div>
+
+                <!-- Add Product Form -->
+                <div id="addProductForm" class="form-section" style="display: none;">
+                    <h3>Add New Product</h3>
+                    <form onsubmit="addProduct(event)">
+                        <div class="form-group">
+                            <label for="name">Name</label>
+                            <input type="text" id="name" name="name" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="brand">Brand</label>
+                            <input type="text" id="brand" name="brand" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="model">Model</label>
+                            <input type="text" id="model" name="model" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="description">Description</label>
+                            <textarea id="description" name="description" required></textarea>
+                        </div>
+                        <div class="form-group">
+                            <label for="price">Price</label>
+                            <input type="number" id="price" name="price" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="image">Image</label>
+                            <input type="file" id="image" name="image" accept="image/*" required>
+                        </div>
+                        <div class="form-actions">
+                            <button type="submit">Add Product</button>
+                            <button type="button" onclick="toggleAddProductForm()">Cancel</button>
+                        </div>
+                    </form>
+                </div>
+
+                <div id="productsList" class="products-grid">
+                    <!-- Products will be loaded here -->
+                </div>
+            </div>
+
+            <!-- Promotions Management -->
+            <div id="promotions" class="content-section">
+                <h2>Manage Promotions</h2>
+                <form id="promoForm">
+                    <div class="form-group">
+                        <label>Promotion Title</label>
+                        <input type="text" id="promoTitle" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Description</label>
+                        <textarea id="promoDescription" required></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label>Discount Percentage</label>
+                        <input type="number" id="promoDiscount" min="0" max="100" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Valid Until</label>
+                        <input type="date" id="promoValidUntil" required>
+                    </div>
+                    <button type="submit" class="btn">Add Promotion</button>
+                </form>
+                <div class="promo-list" id="promoList">
+                    Loading promotions...
+                </div>
+            </div>
+
+            <!-- Manage Inquiries -->
+            <div id="inquiries" class="content-section">
+                <div class="section-header">
+                    <h2>Manage Inquiries</h2>
+                </div>
+                <div id="inquiriesList" class="inquiries-list">
+                    <!-- Inquiries will be loaded here -->
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Navigation
+        document.querySelectorAll('.sidebar-menu a[data-section]').forEach(link => {
+            link.addEventListener('click', (e) => {
+                e.preventDefault();
+                const section = e.target.dataset.section;
+                document.querySelectorAll('.content-section').forEach(s => s.classList.remove('active'));
+                document.getElementById(section).classList.add('active');
+            });
+        });
+
+        // Logout
+        document.getElementById('logoutBtn').addEventListener('click', async (e) => {
+            e.preventDefault();
+            try {
+                const response = await fetch('http://localhost:5000/api/admin/logout', {
+                    credentials: 'include'
+                });
+                if (response.ok) {
+                    window.location.href = 'admin-login.html';
+                }
+            } catch (error) {
+                console.error('Logout failed:', error);
+            }
+        });
+
+        // Check authentication on page load
+        async function checkAuth() {
+            const adminInfo = sessionStorage.getItem('adminInfo');
+            const adminToken = sessionStorage.getItem('adminToken');
+            
+            console.log('Checking auth - Admin Info:', adminInfo);
+            console.log('Checking auth - Admin Token:', adminToken);
+
+            if (!adminInfo || !adminToken) {
+                console.log('No admin info or token found, redirecting to login');
+                window.location.href = 'admin-login.html';
+                return false;
+            }
+
+            try {
+                const response = await fetch('http://localhost:5000/api/admin/verify', {
+                    method: 'GET',
+                    credentials: 'include',
+                    headers: {
+                        'Accept': 'application/json',
+                        'Content-Type': 'application/json',
+                        'Authorization': `Bearer ${adminToken}`
+                    }
+                });
+
+                const data = await response.json();
+                console.log('Auth verification response:', data);
+
+                if (!response.ok || !data.success) {
+                    console.log('Auth verification failed, redirecting to login');
+                    sessionStorage.removeItem('adminInfo');
+                    sessionStorage.removeItem('adminToken');
+                    window.location.href = 'admin-login.html';
+                    return false;
+                }
+
+                // If we get here, token is valid
+                return true;
+            } catch (error) {
+                console.error('Auth check failed:', error);
+                sessionStorage.removeItem('adminInfo');
+                sessionStorage.removeItem('adminToken');
+                window.location.href = 'admin-login.html';
+                return false;
+            }
+        }
+
+        // Update loadDashboardData function
+        async function loadDashboardData() {
+            const adminToken = sessionStorage.getItem('adminToken');
+            if (!adminToken) {
+                window.location.href = 'admin-login.html';
+                return;
+            }
+
+            try {
+                const response = await fetch('http://localhost:5000/api/admin/dashboard', {
+                    method: 'GET',
+                    credentials: 'include',
+                    headers: {
+                        'Accept': 'application/json',
+                        'Content-Type': 'application/json',
+                        'Authorization': `Bearer ${adminToken}`
+                    }
+                });
+
+                if (!response.ok) {
+                    if (response.status === 401 || response.status === 403) {
+                        sessionStorage.removeItem('adminInfo');
+                        sessionStorage.removeItem('adminToken');
+                        window.location.href = 'admin-login.html';
+                        return;
+                    }
+                    const errorData = await response.json();
+                    throw new Error(errorData.message || 'Failed to load dashboard data');
+                }
+
+                const data = await response.json();
+                console.log('Dashboard Data:', data);
+                
+                if (!data.success) {
+                    throw new Error(data.message || 'Failed to load dashboard data');
+                }
+
+                document.getElementById('totalProducts').innerHTML = data.stats?.totalProducts || 0;
+                document.getElementById('totalInquiries').innerHTML = data.stats?.totalInquiries || 0;
+            } catch (error) {
+                console.error('Failed to load dashboard data:', error);
+                document.getElementById('totalProducts').innerHTML = 'Error loading data';
+                document.getElementById('totalInquiries').innerHTML = 'Error loading data';
+            }
+        }
+
+        // Update loadProducts function
+        async function loadProducts() {
+            try {
+                const response = await fetch('http://localhost:5000/api/product');
+                const data = await response.json();
+                console.log('Products data:', data);
+
+                const productsContainer = document.getElementById('productsList');
+                if (!productsContainer) {
+                    console.error('Products container not found');
+                    return;
+                }
+
+                if (data.success && data.products) {
+                    productsContainer.innerHTML = data.products.map(product => `
+                        <div class="product-card">
+                            <img src="${product.image}" alt="${product.name}">
+                            <h3>${product.name}</h3>
+                            <p>${product.description}</p>
+                            <p>Brand: ${product.brand}</p>
+                            <p>Model: ${product.model}</p>
+                            <p>Price: $${product.price}</p>
+                            <div class="product-actions">
+                                <button onclick="editProduct('${product._id}')">Edit</button>
+                                <button onclick="deleteProduct('${product._id}')">Delete</button>
+                            </div>
+                        </div>
+                    `).join('');
+                } else {
+                    productsContainer.innerHTML = '<p>No products found</p>';
+                }
+            } catch (error) {
+                console.error('Failed to load products:', error);
+                const productsContainer = document.getElementById('productsList');
+                if (productsContainer) {
+                    productsContainer.innerHTML = '<p>Error loading products</p>';
+                }
+            }
+        }
+
+        // Add product function
+        async function addProduct(e) {
+            e.preventDefault();
+            const formData = new FormData(e.target);
+            
+            const adminToken = sessionStorage.getItem('adminToken');
+            if (!adminToken) {
+                window.location.href = 'admin-login.html';
+                return;
+            }
+
+            try {
+                const response = await fetch('http://localhost:5000/api/product/add', {
+                    method: 'POST',
+                    credentials: 'include',
+                    headers: {
+                        'Authorization': `Bearer ${adminToken}`
+                    },
+                    body: formData
+                });
+
+                const data = await response.json();
+                console.log('Add product response:', data);
+
+                if (response.ok && data.success) {
+                    alert('Product added successfully');
+                    e.target.reset();
+                    document.getElementById('addProductForm').style.display = 'none';
+                    await loadProducts(); // Reload products after adding
+                } else {
+                    throw new Error(data.message || 'Failed to add product');
+                }
+            } catch (error) {
+                console.error('Failed to add product:', error);
+                alert('Failed to add product: ' + error.message);
+            }
+        }
+
+        // Load inquiries function
+        async function loadInquiries() {
+            try {
+                const response = await fetch('http://localhost:5000/api/inquiry/list', {
+                    method: 'GET',
+                    credentials: 'include',
+                    headers: {
+                        'Accept': 'application/json',
+                        'Content-Type': 'application/json'
+                    }
+                });
+
+                const data = await response.json();
+                console.log('Inquiries data:', data);
+
+                const inquiriesList = document.getElementById('inquiriesList');
+                if (!inquiriesList) {
+                    console.error('Inquiries container not found');
+                    return;
+                }
+
+                if (data.success && data.inquiries) {
+                    inquiriesList.innerHTML = data.inquiries.map(inquiry => `
+                        <div class="inquiry-card">
+                            <h3>${inquiry.name}</h3>
+                            <p><strong>Email:</strong> ${inquiry.email}</p>
+                            <p><strong>Phone:</strong> ${inquiry.phone}</p>
+                            <p><strong>Message:</strong> ${inquiry.message}</p>
+                            <p><strong>Date:</strong> ${new Date(inquiry.createdAt).toLocaleString()}</p>
+                            <div class="inquiry-actions">
+                                <button class="delete" onclick="deleteInquiry('${inquiry._id}')">Delete</button>
+                            </div>
+                        </div>
+                    `).join('');
+                } else {
+                    inquiriesList.innerHTML = '<p>No inquiries found</p>';
+                }
+            } catch (error) {
+                console.error('Failed to load inquiries:', error);
+                const inquiriesList = document.getElementById('inquiriesList');
+                if (inquiriesList) {
+                    inquiriesList.innerHTML = '<p>Error loading inquiries</p>';
+                }
+            }
+        }
+
+        // Delete inquiry function
+        async function deleteInquiry(inquiryId) {
+            if (!confirm('Are you sure you want to delete this inquiry?')) {
+                return;
+            }
+
+            const adminToken = sessionStorage.getItem('adminToken');
+            if (!adminToken) {
+                window.location.href = 'admin-login.html';
+                return;
+            }
+
+            try {
+                const response = await fetch(`http://localhost:5000/api/inquiry/${inquiryId}`, {
+                    method: 'DELETE',
+                    credentials: 'include',
+                    headers: {
+                        'Accept': 'application/json',
+                        'Authorization': `Bearer ${adminToken}`
+                    }
+                });
+
+                const data = await response.json();
+                console.log('Delete inquiry response:', data);
+
+                if (response.ok && data.success) {
+                    alert('Inquiry deleted successfully');
+                    await loadInquiries();
+                } else {
+                    throw new Error(data.message || 'Failed to delete inquiry');
+                }
+            } catch (error) {
+                console.error('Failed to delete inquiry:', error);
+                alert('Failed to delete inquiry: ' + error.message);
+            }
+        }
+
+        // Promotion Management
+        document.getElementById('promoForm').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const adminToken = sessionStorage.getItem('adminToken');
+            if (!adminToken) {
+                window.location.href = 'admin-login.html';
+                return;
+            }
+
+            const promoData = {
+                title: document.getElementById('promoTitle').value,
+                description: document.getElementById('promoDescription').value,
+                discount: document.getElementById('promoDiscount').value,
+                validUntil: document.getElementById('promoValidUntil').value
+            };
+
+            try {
+                const response = await fetch('http://localhost:5000/api/promo', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Authorization': `Bearer ${adminToken}`
+                    },
+                    credentials: 'include',
+                    body: JSON.stringify(promoData)
+                });
+
+                const data = await response.json();
+                if (response.ok && data.success) {
+                    alert('Promotion added successfully');
+                    document.getElementById('promoForm').reset();
+                    loadPromotions();
+                } else {
+                    throw new Error(data.message || 'Failed to add promotion');
+                }
+            } catch (error) {
+                console.error('Failed to add promotion:', error);
+                alert('Failed to add promotion: ' + error.message);
+            }
+        });
+
+        // Load Promotions
+        async function loadPromotions() {
+            const adminToken = sessionStorage.getItem('adminToken');
+            if (!adminToken) {
+                window.location.href = 'admin-login.html';
+                return;
+            }
+
+            try {
+                const response = await fetch('http://localhost:5000/api/promo', {
+                    method: 'GET',
+                    credentials: 'include',
+                    headers: {
+                        'Accept': 'application/json',
+                        'Content-Type': 'application/json',
+                        'Authorization': `Bearer ${adminToken}`
+                    }
+                });
+
+                if (!response.ok) {
+                    const errorData = await response.json();
+                    throw new Error(errorData.message || 'Failed to load promotions');
+                }
+
+                const data = await response.json();
+                if (!data.success) {
+                    throw new Error(data.message || 'Failed to load promotions');
+                }
+
+                const promoList = document.getElementById('promoList');
+                promoList.innerHTML = data.promos.map(promo => `
+                    <div class="promo-item">
+                        <h3>${promo.title}</h3>
+                        <p>${promo.description}</p>
+                        <p>Discount Amount: $${promo.discountAmount}</p>
+                        <p>Valid until: ${new Date(promo.expiredDate).toLocaleDateString()}</p>
+                        <button onclick="deletePromo('${promo._id}')" class="btn">Delete</button>
+                    </div>
+                `).join('');
+            } catch (error) {
+                console.error('Failed to load promotions:', error);
+                document.getElementById('promoList').innerHTML = 
+                    `<div class="error-message">Failed to load promotions: ${error.message}</div>`;
+            }
+        }
+
+        // Delete promotion
+        async function deletePromo(promoId) {
+            if (!confirm('Are you sure you want to delete this promotion?')) {
+                return;
+            }
+
+            const adminToken = sessionStorage.getItem('adminToken');
+            if (!adminToken) {
+                window.location.href = 'admin-login.html';
+                return;
+            }
+
+            try {
+                const response = await fetch(`http://localhost:5000/api/promo/${promoId}`, {
+                    method: 'DELETE',
+                    credentials: 'include',
+                    headers: {
+                        'Accept': 'application/json',
+                        'Content-Type': 'application/json',
+                        'Authorization': `Bearer ${adminToken}`
+                    }
+                });
+
+                const data = await response.json();
+                if (response.ok && data.success) {
+                    alert('Promotion deleted successfully');
+                    loadPromotions();
+                } else {
+                    throw new Error(data.message || 'Failed to delete promotion');
+                }
+            } catch (error) {
+                console.error('Failed to delete promotion:', error);
+                alert('Failed to delete promotion: ' + error.message);
+            }
+        }
+
+        // Edit product function
+        async function editProduct(productId) {
+            try {
+                const response = await fetch(`http://localhost:5000/api/product/${productId}`);
+                const data = await response.json();
+                
+                if (data.success && data.product) {
+                    const product = data.product;
+                    // Populate the form with product data
+                    document.getElementById('name').value = product.name;
+                    document.getElementById('brand').value = product.brand;
+                    document.getElementById('model').value = product.model;
+                    document.getElementById('description').value = product.description;
+                    document.getElementById('price').value = product.price;
+                    
+                    // Show the form
+                    document.getElementById('addProductForm').style.display = 'block';
+                    
+                    // Change form submission to update instead of add
+                    const form = document.getElementById('addProductForm').querySelector('form');
+                    form.onsubmit = async (e) => {
+                        e.preventDefault();
+                        await updateProduct(e, productId);
+                    };
+                } else {
+                    throw new Error('Failed to load product details');
+                }
+            } catch (error) {
+                console.error('Error loading product:', error);
+                alert('Failed to load product details: ' + error.message);
+            }
+        }
+
+        // Update product function
+        async function updateProduct(e, productId) {
+            e.preventDefault();
+            const formData = new FormData(e.target);
+            
+            const adminToken = sessionStorage.getItem('adminToken');
+            if (!adminToken) {
+                window.location.href = 'admin-login.html';
+                return;
+            }
+
+            try {
+                const response = await fetch(`http://localhost:5000/api/product/${productId}`, {
+                    method: 'PUT',
+                    credentials: 'include',
+                    headers: {
+                        'Authorization': `Bearer ${adminToken}`
+                    },
+                    body: formData
+                });
+
+                const data = await response.json();
+                console.log('Update product response:', data);
+
+                if (response.ok && data.success) {
+                    alert('Product updated successfully');
+                    e.target.reset();
+                    // Reset form to add mode
+                    const form = document.getElementById('addProductForm').querySelector('form');
+                    form.onsubmit = addProduct;
+                    document.getElementById('addProductForm').style.display = 'none';
+                    await loadProducts();
+                } else {
+                    throw new Error(data.message || 'Failed to update product');
+                }
+            } catch (error) {
+                console.error('Failed to update product:', error);
+                alert('Failed to update product: ' + error.message);
+            }
+        }
+
+        // Delete product function
+        async function deleteProduct(productId) {
+            if (!confirm('Are you sure you want to delete this product?')) {
+                return;
+            }
+
+            const adminToken = sessionStorage.getItem('adminToken');
+            if (!adminToken) {
+                window.location.href = 'admin-login.html';
+                return;
+            }
+
+            try {
+                const response = await fetch(`http://localhost:5000/api/product/${productId}`, {
+                    method: 'DELETE',
+                    credentials: 'include',
+                    headers: {
+                        'Accept': 'application/json',
+                        'Authorization': `Bearer ${adminToken}`
+                    }
+                });
+
+                const data = await response.json();
+                console.log('Delete product response:', data);
+
+                if (response.ok && data.success) {
+                    alert('Product deleted successfully');
+                    await loadProducts();
+                } else {
+                    throw new Error(data.message || 'Failed to delete product');
+                }
+            } catch (error) {
+                console.error('Failed to delete product:', error);
+                alert('Failed to delete product: ' + error.message);
+            }
+        }
+
+        // Toggle add product form
+        function toggleAddProductForm() {
+            const form = document.getElementById('addProductForm');
+            if (form.style.display === 'none') {
+                form.style.display = 'block';
+                form.querySelector('form').reset();
+                form.querySelector('form').onsubmit = addProduct;
+            } else {
+                form.style.display = 'none';
+            }
+        }
+
+        // Update showAddProductForm to use toggleAddProductForm
+        function showAddProductForm() {
+            toggleAddProductForm();
+        }
+
+        // Initial load
+        document.addEventListener('DOMContentLoaded', async () => {
+            const isAuthenticated = await checkAuth();
+            if (isAuthenticated) {
+                loadDashboardData();
+                loadProducts();
+                loadPromotions();
+                loadInquiries();
+            }
+        });
+    </script>
+</body>
+</html>
