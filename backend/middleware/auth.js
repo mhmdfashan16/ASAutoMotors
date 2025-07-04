@@ -44,7 +44,7 @@ export const authenticate = async (req, res, next) => {
 
 export const authorizeAdmin = async (req, res, next) => {
     try {
-        console.log('Checking admin role:', req.user); // Debug log
+        console.log('Checking admin role:', req.user);
         
         // Get fresh user data from database
         const user = await User.findById(req.user._id);
@@ -76,6 +76,42 @@ export const authorizeAdmin = async (req, res, next) => {
             message: 'Access denied. Admins only.' 
         });
     }
+};
+
+export const authAdmin = async (req, res, next) => {
+  try {
+    const token = req.cookies.adminToken;
+
+    if (!token) {
+      return res.status(401).json({
+        success: false,
+        message: 'No admin token provided',
+      });
+    }
+
+    // Verify the admin token
+    const decoded = jwt.verify(token, process.env.JWT_SECRET);
+
+    const user = await User.findById(decoded.id);
+
+    if (!user || user.role !== 'admin') {
+      return res.status(403).json({
+        success: false,
+        message: 'Access denied. Admins only.',
+      });
+    }
+
+    // Attach fresh user to request
+    req.user = user;
+    next();
+
+  } catch (error) {
+    console.error('Admin authorization error:', error.message);
+    res.status(403).json({
+      success: false,
+      message: 'Access denied. Invalid or expired admin token.',
+    });
+  }
 };
 
 

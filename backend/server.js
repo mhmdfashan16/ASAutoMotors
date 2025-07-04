@@ -12,6 +12,9 @@ import productRouter from './routes/productRoutes.js';
 import adminRouter from './routes/adminRoutes.js';
 import inquiryRouter from './routes/inqiuryRoutes.js';
 import promoRouter from './routes/promoRoutes.js';
+import contuctRouter from './routes/contuctRoutes.js';
+import bookingRouter from './routes/bookingRouter.js';
+
 // import connectCloudinary from './config/cloudinary.js';
 
 
@@ -35,6 +38,8 @@ app.use(cors({
         const allowedOrigins = [
             'http://127.0.0.1:5500',
             'http://localhost:5500',
+            'http://localhost:5173',
+            'http://localhost:5174',
             'null'
         ];
         
@@ -72,6 +77,8 @@ app.use('/api/product',productRouter); //this route is used for CRUD operations 
 app.use('/api/chat', chatRouter);
 app.use('/api/inquiry', inquiryRouter)
 app.use('/api/promo',promoRouter) //this route is used to check the promo
+app.use('/api/contuct', contuctRouter)
+app.use('/api/booking',bookingRouter);
 
 // Error handling middleware
 app.use((err, req, res, next) => {

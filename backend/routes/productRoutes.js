@@ -1,6 +1,6 @@
 // routes/productRoutes.js
 import express from 'express';
-import { authenticate, authorizeAdmin } from '../middleware/auth.js';
+import { authAdmin, authenticate, authorizeAdmin } from '../middleware/auth.js';
 import { 
     getProducts, 
     getProduct,
@@ -17,8 +17,8 @@ router.get('/', getProducts);
 router.get('/:id', getProduct);
 
 // Admin protected routes
-router.post('/add', authenticate, authorizeAdmin, upload.single('image'), addProduct);
+router.post('/add', authAdmin, upload.single('image'), addProduct);
 router.put('/:id', authenticate, authorizeAdmin, upload.single('image'), updateProduct);
-router.delete('/:id', authenticate, authorizeAdmin, deleteProduct);
+router.delete('/:id', authAdmin, deleteProduct);
 
 export default router;

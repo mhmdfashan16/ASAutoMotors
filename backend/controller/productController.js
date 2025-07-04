@@ -42,9 +42,6 @@ export const getProduct = async (req, res) => {
 // Add new product
 export const addProduct = async (req, res) => {
     try {
-        console.log('Request body:', req.body);
-        console.log('Request file:', req.file);
-
         const { name, brand, model, description, price } = req.body;
         
         // Handle image upload to Cloudinary

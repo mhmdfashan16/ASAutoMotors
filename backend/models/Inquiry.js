@@ -6,6 +6,8 @@ const inquirySchema = new mongoose.Schema({
   name: String,
   email: String,
   message: String,
+  phone: String,
+  subject: String,
   createdAt: { type: Date, default: Date.now }
 });
 

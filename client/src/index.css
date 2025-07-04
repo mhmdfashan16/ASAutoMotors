@@ -1,0 +1,30 @@
+@import "tailwindcss";
+
+@tailwind utilities;
+
+@layer utilities {
+  @keyframes ripple {
+    0% {
+      transform: scale(0.9);
+      opacity: 0.6;
+    }
+    100% {
+      transform: scale(2.5);
+      opacity: 0;
+    }
+  }
+
+  .chatbot-trigger::before {
+    content: "";
+    position: absolute;
+    top: 0%;
+    left: 0%;
+    width: 80px;
+    height: 80px;
+    background-color: rgba(0, 2, 147, 0.3); /* blue-400 */
+    border-radius: 9999px;
+    transform: translate(-50%, -50%);
+    z-index: 20;
+    animation: ripple 2s infinite ease-out;
+  }
+}

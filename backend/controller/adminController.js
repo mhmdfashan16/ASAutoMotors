@@ -33,7 +33,6 @@ export const getDashboardData = async (req, res) => {
     }
 };
 
-//Admin login page URL : /api/admin/login this endpoint uses the admin to login and checks the password and username as well
 export const login = async (req, res) => {
   try {
     const { email, password } = req.body;

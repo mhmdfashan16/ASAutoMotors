@@ -1,4 +1,5 @@
 // controllers/promoController.js this endpoint helps to update the promotion for the product 
+import { cloudinary } from '../config/cloudinary.js';
 import Promotion from '../models/Promotion.js';
 
 // Get all promotions
@@ -16,12 +17,22 @@ export const getPromos = async (req, res) => {
 export const addPromo = async (req, res) => {
     try {
         const { title, description, discount, validUntil } = req.body;
+        let imageUrl = '';
+
+        if (req.file) {
+            const result = await cloudinary.uploader.upload(req.file.path, {
+                folder: 'as_auto_motors',
+                use_filename: true
+            });
+            imageUrl = result.secure_url;
+        }
         
         const promotion = new Promotion({
             title,
             description,
             discountAmount: discount,
-            expiredDate: validUntil
+            expiredDate: validUntil,
+            image:imageUrl,
         });
 
         await promotion.save();
