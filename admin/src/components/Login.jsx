@@ -7,8 +7,8 @@ import { useAdminContext } from "../context/AdminContext";
 const AdminLogin = () => {
   const [formData, setFormData] = useState({ email: "", password: "" });
   const [error, setError] = useState("");
-  const [admin, setAdmin]=useState([]);
-  const {setLogin} = useAdminContext();
+  
+  const {setLogin, setAdmin, admin} = useAdminContext();
 
   const naviage = useNavigate();
 
@@ -29,6 +29,7 @@ const AdminLogin = () => {
       if (response.data.success ) {
         toast.success("Admin Login Successful");
         naviage('/admin')
+        setAdmin(response.user);
         setLogin(true);
       } else {
         setError("Invalid admin credentials");

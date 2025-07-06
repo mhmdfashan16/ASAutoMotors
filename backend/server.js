@@ -15,10 +15,6 @@ import promoRouter from './routes/promoRoutes.js';
 import contuctRouter from './routes/contuctRoutes.js';
 import bookingRouter from './routes/bookingRouter.js';
 
-// import connectCloudinary from './config/cloudinary.js';
-
-
-
 
 dotenv.config();
 const app = express();
@@ -36,11 +32,9 @@ app.use(cors({
         }
         
         const allowedOrigins = [
-            'http://127.0.0.1:5500',
-            'http://localhost:5500',
             'http://localhost:5173',
-            'http://localhost:5174',
-            'null'
+            'http://localhost:5174'
+            
         ];
         
         if (allowedOrigins.indexOf(origin) !== -1) {
@@ -62,21 +56,15 @@ app.use(express.json());
 app.use(cookieParser());
 app.use(express.urlencoded({ extended: true }));
 
-// app.use(
-//    fileUpload({
-//         useTempFiles:true,
-//         tempFileDir:'/tmp',
-//     })
-// )
 
 app.get('/', (req,res)=> res.send("API is Working"));
 
 app.use('/api/auth',authRouter);
-app.use('/api/admin',adminRouter);//this route is used for admin side usages
-app.use('/api/product',productRouter); //this route is used for CRUD operations of products
+app.use('/api/admin',adminRouter);
+app.use('/api/product',productRouter); 
 app.use('/api/chat', chatRouter);
 app.use('/api/inquiry', inquiryRouter)
-app.use('/api/promo',promoRouter) //this route is used to check the promo
+app.use('/api/promo',promoRouter)
 app.use('/api/contuct', contuctRouter)
 app.use('/api/booking',bookingRouter);
 

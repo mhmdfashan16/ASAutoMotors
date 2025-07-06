@@ -1,26 +1,40 @@
-import React, { createContext, useContext, useState } from "react";
+import React, { createContext, useContext, useState, useMemo, useEffect } from "react";
 import axios from 'axios';
 
-axios.defaults.withCredentials=true;
-axios.defaults.baseURL=import.meta.env.VITE_BACKEND_URL;
+axios.defaults.withCredentials = true;
+axios.defaults.baseURL = import.meta.env.VITE_BACKEND_URL;
 
 const GlobalContext = createContext();
 
 export const GlobalProvider = ({ children }) => {
-  const [user, setUser] = useState(null);
-  const [isAdmin, setIsAdmin] = useState(false);
+  const [user, setUser] = useState(() => {
+    const storedUser = localStorage.getItem("asauto_user");
+    return storedUser ? JSON.parse(storedUser) : null;
+  });
+
+
   const [cart, setCart] = useState([]);
   const [loginState, setLoginState] = useState(false);
-  const[chatState, setChatState] = useState(true);
+  const [chatState, setChatState] = useState(false);
 
-  const value={
-    user, setUser,
-    isAdmin, setIsAdmin, 
-    cart, setCart,
-    loginState, setLoginState,
-    chatState, setChatState
-  }
-  
+  // Persist user and admin info to localStorage
+  useEffect(() => {
+    if (user) {
+      localStorage.setItem("asauto_user", JSON.stringify(user));
+      } else {
+      localStorage.removeItem("asauto_user");
+    }
+    // setLoginState(!!user);
+  }, [user]);
+
+const value = useMemo(() => ({
+  user, setUser,
+  cart, setCart,
+  loginState, setLoginState,
+  chatState, setChatState
+}), [user, cart, loginState, chatState]); 
+
+
   return (
     <GlobalContext.Provider value={value}>
       {children}

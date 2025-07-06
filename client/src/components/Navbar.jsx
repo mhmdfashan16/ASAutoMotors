@@ -30,26 +30,30 @@ const Navbar = () => {
           to="/"
           className="flex items-center space-x-2 text-2xl font-bold text-yellow-400"
         >
-          <img src={assets.as_logo} alt="logo" className="w-10 h-10" />
+          <img src={assets.as_logo} alt="logo" className="w-15 h-12" />
           <span>AsAutoMotors</span>
         </Link>
 
         {/* Navigation Links */}
-        <ul className="flex space-x-6">
-          <li className="cursor-pointer hover:text-yellow-300" onClick={() => navigate("/all-products")}>
+        <ul className="flex space-x-6 items-center">
+          <li className="cursor-pointer hover:text-yellow-300 hover:underline" onClick={() => navigate("/all-products")}>
             All Products
           </li>
+          
           <li>
-            <Link to="/search" className="hover:text-yellow-300">Search</Link>
+            <Link to="/promotion" className="hover:text-yellow-300 hover:underline">Promotions</Link>
           </li>
           <li>
-            <Link to="/promotion" className="hover:text-yellow-300">Promotions</Link>
+            <Link to="/inquiry" className="hover:text-yellow-300 hover:underline">Inquiry</Link>
           </li>
           <li>
-            <Link to="/inquiry" className="hover:text-yellow-300">Inquiry</Link>
+            <Link to="/contact" className="hover:text-yellow-300 hover:underline">Contact Us</Link>
           </li>
-          <li>
-            <Link to="/contact" className="hover:text-yellow-300">Contact Us</Link>
+          <li className="flex items-center ">
+            <Link to="/search" className="flex items-center bg-gray-600 px-5 py-2 rounded-xl">
+            <input type="text" placeholder="search" className="border-0"/>
+            <img src={assets.searchIcon} alt="" className="w-5"/>
+            </Link>
           </li>
         </ul>
 
@@ -57,12 +61,12 @@ const Navbar = () => {
         <div className="flex items-center space-x-4">
           {user ? (
             <>
-              <span className="text-lg font-semibold">
-                User: <strong>{user.name || user.email}</strong>
+              <span className="flex justify-center items-center text-xl font-bold border-3 rounded-full p-2 w-10 h-10">
+                 {(user?.name?.[0] || user?.email?.[0] || '').toUpperCase()}
               </span>
               <button
                 onClick={handleLogout}
-                className="bg-yellow-400 px-6 py-2 rounded hover:bg-yellow-500 text-lg font-bold"
+                className="bg-amber-300 px-6 py-2 rounded hover:shadow-amber-600 text-lg text-gray-800 font-bold"
               >
                 Logout
               </button>
@@ -70,7 +74,7 @@ const Navbar = () => {
           ) : (
             <button
               onClick={() => setLoginState(true)}
-              className="bg-yellow-200 px-6 py-2 rounded hover:bg-yellow-300 text-black text-lg font-bold"
+              className="bg-amber-300 px-6 py-2 rounded hover:shadow-amber-600  text-gray-800 text-lg font-bold cursor-pointer"
             >
               Login
             </button>

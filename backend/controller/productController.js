@@ -42,7 +42,7 @@ export const getProduct = async (req, res) => {
 // Add new product
 export const addProduct = async (req, res) => {
     try {
-        const { name, brand, model, description, price } = req.body;
+        const { name, brand, model, description, price, specifications } = req.body;
         
         // Handle image upload to Cloudinary
         let imageUrl = '';
@@ -59,6 +59,7 @@ export const addProduct = async (req, res) => {
             brand,
             model,
             description,
+            specifications,
             price,
             image: imageUrl
         });

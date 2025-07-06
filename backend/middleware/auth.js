@@ -81,6 +81,7 @@ export const authorizeAdmin = async (req, res, next) => {
 export const authAdmin = async (req, res, next) => {
   try {
     const token = req.cookies.adminToken;
+   
 
     if (!token) {
       return res.status(401).json({

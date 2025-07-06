@@ -20,7 +20,7 @@ export const AdminProvider = ({ children }) => {
   useEffect(() => {
     const verifyAdmin = async () => {
       try {
-        const { data } = await axios.get("http://localhost:5000/api/auth/verify", {
+        const { data } = await axios.get("http://localhost:5000/api/admin/verify", {
           withCredentials: true,
         });
 

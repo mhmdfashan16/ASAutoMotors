@@ -21,10 +21,23 @@
     left: 0%;
     width: 80px;
     height: 80px;
-    background-color: rgba(0, 2, 147, 0.3); /* blue-400 */
+    background-color: rgba(42, 42, 43, 0.3); /* blue-400 */
     border-radius: 9999px;
     transform: translate(-50%, -50%);
     z-index: 20;
     animation: ripple 2s infinite ease-out;
   }
+}
+
+/* Hide scrollbar while allowing scroll */
+.scrollbar-hide::-webkit-scrollbar {
+  display: none;
+}
+.scrollbar-hide {
+  -ms-overflow-style: none; /* IE/Edge */
+  scrollbar-width: none; /* Firefox */
+}
+
+html, body {
+  overflow: visible;
 }

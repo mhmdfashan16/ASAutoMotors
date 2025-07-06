@@ -18,14 +18,14 @@ import { useAdminContext } from "./context/AdminContext";
 
 const AdminApp = () => {
 
-  const {login} = useAdminContext();
+  const {login, admin} = useAdminContext();
 
   return (
     <Router>
       <div className="min-h-screen bg-gray-100">
         
         <Toaster position="top-center" reverseOrder={false} />
-        {login && <AdminNavbar/>}
+        {admin && <AdminNavbar/>}
         
         <Routes>
           <Route path="/admin" element={<Admin/>}/>

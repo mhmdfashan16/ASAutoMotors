@@ -19,7 +19,7 @@ import assets from "./assets/assets";
 function App() {
 
   const location = useLocation();
-  const {loginState, setLoginState, chatState, setChatState}=useGlobalContext();
+  const {loginState, chatState, setChatState}=useGlobalContext();
 
  
   const hideNavbar = location.pathname.startsWith("/product/");
@@ -53,7 +53,7 @@ function App() {
         <Route path="/promotion" element={<PromotionPage />} />
         <Route path="/product/:id" element={<ProductView/>} />
       </Routes>
-      <div
+      {/* <div
   className="fixed right-5 bottom-10 z-50 chatbot-trigger group"
   onClick={() => setChatState(true)}
 >
@@ -62,6 +62,13 @@ function App() {
     alt="Chatbot"
     className="w-20  relative z-10"
   />
+</div> */}
+
+<div className="fixed flex items-center justify-center right-10 bottom-10"
+  onClick={() => setChatState(true)}
+>
+  <span className="absolute w-20 h-20 rounded-full bg-gray-800 opacity-75 animate-ping"></span>
+  <img src={assets.chatbot} alt="Chatbot" className="w-20 relative z-10" />
 </div>
 
       <Footer />

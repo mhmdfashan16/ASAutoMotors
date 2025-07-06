@@ -45,23 +45,28 @@ const AllProducts = () => {
       ) : products.length === 0 ? (
         <p className="text-center text-gray-600">No products available.</p>
       ) : (
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
           {products.map((product) => (
             <div
               key={product._id}
-              className="bg-white shadow-md rounded-xl overflow-hidden hover:shadow-lg transition cursor-pointer"
+              className="flex bg-gray-400 shadow-md rounded-xl overflow-hidden hover:shadow-lg transition cursor-pointer"
               onClick={() => navigate(`/product/${product._id}`)}
             >
-              <img
+              <div className="p-2">
+                 <img
                 src={product.image}
                 alt={product.name}
-                className="w-full h-60 object-cover"
+                className="w-full h-60 object-cover rounded-xl border-4 border-gray-500"
               />
+              </div>
+             
               <div className="p-4">
-                <h3 className="text-xl font-semibold text-gray-800">{product.name}</h3>
+                <h3 className="text-2xl font-semibold text-gray-800">{product.name}</h3>
                 <h4 className="text-md font-medium text-gray-600">{product.brand} - {product.model}</h4>
                 <p className="text-gray-600 mt-1">{product.description}</p>
-                <p className="text-green-700 font-bold mt-2">{product.price}</p>
+            
+                <p className="text-gray-600 mt-1">{product.specifications}</p>
+                <p className="text-green-700 font-bold mt-2">Rs: {product.price}</p>
               </div>
             </div>
           ))}

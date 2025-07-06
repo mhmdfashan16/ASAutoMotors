@@ -26,6 +26,10 @@ import user from '../assets/user_1.png'
 import chatbot from '../assets/chatbot.png'
 import chatbot_1 from '../assets/chatbot_1.png'
 import bot from '../assets/bot.png'
+import sendIcon from '../assets/sentIcon.png'
+import remove from '../assets/remove.png'
+import removex from '../assets/x-button.png'
+import searchIcon from '../assets/search.png'
 
 const assets = {
     as_logo,
@@ -55,7 +59,11 @@ const assets = {
     chatbot,
     chatbot_1,
     close,
-    bot
+    bot,
+    sendIcon,
+    remove,
+    removex,
+    searchIcon
     
 }
 

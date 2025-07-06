@@ -8,8 +8,8 @@ import toast from "react-hot-toast";
 const LoginPage = () => {
   const [state, setState] = useState("login"); // "login" or "register"
   const [error, setError] = useState("");
-  const { setUser, setLoginState } = useGlobalContext();
   const navigate = useNavigate();
+  const { setUser, setLoginState, setIsAdmin } = useGlobalContext();
 
   const [formData, setFormData] = useState({
     name: "",
@@ -28,11 +28,7 @@ const LoginPage = () => {
     setError("");
 
     try {
-      const endpoint =
-        state === "login"
-          ? "/api/auth/login"
-          : "/api/auth/register";
-
+      const endpoint = state === "login" ? "/api/auth/login" : "/api/auth/register";
       const payload =
         state === "login"
           ? { email: formData.email, password: formData.password }
@@ -44,42 +40,40 @@ const LoginPage = () => {
               role: "user",
             };
 
-      const response = await axios.post(endpoint, payload, {
-        withCredentials: true,
-      });
+      const res = await axios.post(endpoint, payload, { withCredentials: true });
 
-      if (response.data.success) {
-        setUser(response.data.user);
+      if (res.data.success) {
+        const loggedUser = res.data.user;
+        setUser(loggedUser);
         setLoginState(false);
-        toast.success("Login Successful");
-        navigate("/");
-      } else {
-        setError(response.data.message || "Something went wrong.");
-        toast.error("Login failed");
+        toast.success(`${state === "login" ? "Login" : "Registration"} Successful`);
+        setFormData({ name: "", email: "", password: "", phone: "" });
+        } else {
+        const msg = res.data.message || "Something went wrong";
+        setError(msg);
+        toast.error(msg);
       }
     } catch (err) {
-      console.error("Auth error:", err);
-      const errorMsg = err.response?.data?.message || "Error occurred";
-      setError(errorMsg);
-      toast.error(errorMsg);
+      const msg = err.response?.data?.message || "Server error";
+      setError(msg);
+      toast.error(msg);
     }
   };
 
   return (
-    <div className="z-10 absolute top-0 bg-black/60 w-full h-full flex justify-center">
-      <div className="absolute rounded-2xl top-20 max-w-full w-2xl mx-auto px-10 py-10 bg-gray-800 h-fit">
-      <div className="flex justify-center">
-        <h2 className="text-2xl font-bold text-center text-gray-200 mb-6">
-          User {state === "register" ? "Register" : "Login"}
-        </h2>
-        <img
-          src={assets.close_icon}
-          alt="close"
-          className="relative w-5 h-5 left-55 cursor-pointer"
-          onClick={() => setLoginState(false)}
-        />
-      </div>
-      
+    <div className="fixed top-0 left-0 w-full h-full z-[1001] bg-black/60">
+      <div className="relative top-30 rounded-2xl justify-center max-w-full w-2xl mx-auto px-10 py-10 bg-gray-800 h-fit">
+        <div className="flex justify-between items-center mb-4">
+          <h2 className="text-2xl font-bold text-gray-200">
+            {state === "register" ? "Register" : "Login"}
+          </h2>
+          <img
+            src={assets.close_icon}
+            alt="close"
+            className="w-5 h-5 cursor-pointer"
+            onClick={() => setLoginState(false)}
+          />
+        </div>
 
         {error && (
           <div className="bg-red-100 text-red-700 text-sm p-3 rounded mb-4">
@@ -97,7 +91,7 @@ const LoginPage = () => {
                   name="name"
                   value={formData.name}
                   onChange={handleChange}
-                  className="w-full px-4 py-2 border rounded"
+                  className="w-full px-4 py-3 border-none rounded bg-gray-800 text-gray-300"
                   required
                 />
               </div>
@@ -108,7 +102,7 @@ const LoginPage = () => {
                   name="phone"
                   value={formData.phone}
                   onChange={handleChange}
-                  className="w-full px-4 py-2 border rounded"
+                  className="w-full px-4 py-3 border-none rounded bg-gray-800 text-gray-300"
                   required
                 />
               </div>
@@ -122,7 +116,7 @@ const LoginPage = () => {
               name="email"
               value={formData.email}
               onChange={handleChange}
-              className="w-full px-4 py-2 border rounded"
+              className="w-full px-4 py-3 border-none rounded bg-gray-800 text-gray-300"
               required
             />
           </div>
@@ -134,14 +128,14 @@ const LoginPage = () => {
               name="password"
               value={formData.password}
               onChange={handleChange}
-              className="w-full px-4 py-2 border rounded"
+              className="w-full px-4 py-3 border-none rounded bg-gray-800 text-gray-300"
               required
             />
           </div>
 
           <button
             type="submit"
-            className="w-full bg-gray-600 text-white py-2 rounded hover:bg-gray-700"
+            className="w-full bg-blue-600 text-white py-2 rounded hover:bg-blue-700 transition"
           >
             {state === "register" ? "Register" : "Login"}
           </button>

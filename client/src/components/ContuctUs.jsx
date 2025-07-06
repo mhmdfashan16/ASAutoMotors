@@ -59,9 +59,9 @@ const ContactUs = () => {
         </div>
       )}
 
-      <form onSubmit={handleSubmit} className="bg-white p-6 shadow-lg rounded-lg">
+      <form onSubmit={handleSubmit} className="bg-gray-400 p-6 shadow-lg rounded-lg">
         <div className="mb-4">
-          <label htmlFor="name" className="block text-sm font-medium text-gray-700">
+          <label htmlFor="name" className="block text-sm font-medium text-gray-800">
             Name:
           </label>
           <input
@@ -71,12 +71,12 @@ const ContactUs = () => {
             required
             value={formData.name}
             onChange={handleChange}
-            className="mt-1 block w-full px-4 py-2 border border-gray-300 rounded-md focus:ring focus:ring-blue-500"
+            className="mt-1 block w-full px-4 py-3 border-2 border-gray-700  rounded-md focus:ring focus:ring-blue-500"
           />
         </div>
 
         <div className="mb-4">
-          <label htmlFor="email" className="block text-sm font-medium text-gray-700">
+          <label htmlFor="email" className="block text-sm font-medium text-gray-800">
             Email:
           </label>
           <input
@@ -86,12 +86,12 @@ const ContactUs = () => {
             required
             value={formData.email}
             onChange={handleChange}
-            className="mt-1 block w-full px-4 py-2 border border-gray-300 rounded-md focus:ring focus:ring-blue-500"
+            className="mt-1 block w-full px-4 py-3 border-2 border-gray-700 rounded-md focus:ring focus:ring-blue-500"
           />
         </div>
 
         <div className="mb-4">
-          <label htmlFor="message" className="block text-sm font-medium text-gray-700">
+          <label htmlFor="message" className="block text-sm font-medium text-gray-800">
             Message:
           </label>
           <textarea
@@ -101,13 +101,13 @@ const ContactUs = () => {
             required
             value={formData.message}
             onChange={handleChange}
-            className="mt-1 block w-full px-4 py-2 border border-gray-300 rounded-md focus:ring focus:ring-blue-500"
+            className="mt-1 block w-full px-4 py-3 border-2 border-gray-700  rounded-md focus:ring focus:ring-blue-500"
           />
         </div>
 
         <button
           type="submit"
-          className="bg-blue-600 text-white px-6 py-2 rounded-md hover:bg-blue-700"
+          className="bg-black text-white px-6 py-4 rounded-md hover:bg-gray-700"
         >
           Send Message
         </button>

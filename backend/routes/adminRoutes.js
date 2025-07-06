@@ -1,6 +1,6 @@
 // routes/adminRoutes.js
 import express from 'express';
-import { authenticate, authorizeAdmin } from '../middleware/auth.js';
+import { authAdmin, authenticate, authorizeAdmin } from '../middleware/auth.js';
 import { 
     getDashboardStats, 
     getInquiries, 
@@ -10,20 +10,17 @@ import {
     logout
 } from '../controller/adminController.js';
 
-const router = express.Router();
+const adminRouter = express.Router();
 
-// All admin routes must be protected with both authenticate and authorizeAdmin middleware
-// router.use(authenticate); // Apply authentication to all routes
-// router.use(authorizeAdmin); // Apply admin authorization to all routes
-router.post('/login',login);
-router.get('/logout',logout);
+adminRouter.post('/login',login);
+adminRouter.get('/logout',logout);
 
 // Admin verification route
-router.get('/verify', verifyAdmin);
+adminRouter.get('/verify', authAdmin);
 
 // Admin dashboard routes
-router.get('/dashboard', getDashboardStats);
-router.get('/inquiries', getInquiries);
-router.delete('/inquiries/:id', deleteInquiry);
+adminRouter.get('/dashboard', getDashboardStats);
+adminRouter.get('/inquiries', getInquiries);
+adminRouter.delete('/inquiries/:id', deleteInquiry);
 
-export default router;
+export default adminRouter;

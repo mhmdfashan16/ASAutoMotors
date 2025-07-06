@@ -62,22 +62,26 @@ const PromotionPage = () => {
   const promo = promotions[currentIndex];
 
   return (
-    <div className="max-w-6xl mx-auto px-4 py-10 text-center items-center transition-all duration-500">
+    <div className="max-w-7xl mx-auto px-4 py-10 text-center items-center transition-all duration-500">
       <h2 className="text-3xl font-bold text-gray-800 mb-8">Current Promotions</h2>
 
-      <div className="relative w-6xl bg-white shadow-lg rounded-xl overflow-hidden">
+      <div className="relative w-full bg-white shadow-lg rounded-xl overflow-hidden">
+        <div className="flex items-center bg-gray-700">
         <img
           src={promo.image}
           alt={promo.title}
-          className="w-f100 h-100 object-cover"
+          className="min-w-2xl w-100 h-130 object-cover"
         />
-        <div className="p-4 bg-gray-700 text-left">
-          <h3 className="text-xl font-semibold text-white mb-1">{promo.title}</h3>
-          <p className="text-gray-300 text-sm mb-2">{promo.description}</p>
-          <p className="text-sm text-red-400 font-medium">
+        <div className="py-4 px-10 text-left w-full h-full">
+          <h3 className="text-4xl font-bold text-white mb-1">{promo.title}</h3>
+          <p className="text-gray-300 text-xl mb-2">{promo.description}</p>
+          <p className="text-lg text-red-400 font-medium">
             Valid Until: {new Date(promo.expiredDate).toLocaleDateString()}
           </p>
         </div>
+
+        </div>
+     
 
         {/* Slide Controls */}
         <div className="absolute top-1/2 left-0 transform -translate-y-1/2">

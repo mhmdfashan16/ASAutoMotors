@@ -51,7 +51,7 @@ const InquiryPage = () => {
         </div>
       )}
 
-      <form onSubmit={handleSubmit} className="bg-white p-6 rounded-lg shadow-md">
+      <form onSubmit={handleSubmit} className="bg-gray-400 p-6 rounded-lg shadow-md">
         <div className="mb-4">
           <label className="block text-sm font-medium text-gray-700">Name:</label>
           <input
@@ -60,7 +60,7 @@ const InquiryPage = () => {
             value={inquiry.name}
             onChange={handleChange}
             required
-            className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring focus:ring-blue-500"
+            className="w-full px-4 py-3 border-2 border-gray-800 rounded-md focus:outline-none focus:ring focus:ring-gray-600"
           />
         </div>
 
@@ -72,7 +72,7 @@ const InquiryPage = () => {
             value={inquiry.email}
             onChange={handleChange}
             required
-            className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring focus:ring-blue-500"
+            className="w-full px-4 py-3 border-2 border-gray-800 rounded-md focus:outline-none focus:ring focus:ring-gray-600"
           />
         </div>
 
@@ -84,7 +84,7 @@ const InquiryPage = () => {
             value={inquiry.phone}
             onChange={handleChange}
             required
-            className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring focus:ring-blue-500"
+            className="w-full px-4 py-3 border-2 border-gray-800 rounded-md focus:outline-none focus:ring focus:ring-gray-600"
           />
         </div>
 
@@ -96,7 +96,7 @@ const InquiryPage = () => {
             value={inquiry.subject}
             onChange={handleChange}
             required
-            className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring focus:ring-blue-500"
+            className="w-full px-4 py-3 border-2 border-gray-800 rounded-md focus:outline-none focus:ring focus:ring-gray-600"
           />
         </div>
 
@@ -108,13 +108,13 @@ const InquiryPage = () => {
             onChange={handleChange}
             required
             rows="4"
-            className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring focus:ring-blue-500"
+            className="w-full px-4 py-3 border-2 border-2-gray-800 rounded-md focus:outline-none focus:ring focus:ring-gray-600"
           ></textarea>
         </div>
 
         <button
           type="submit"
-          className="bg-blue-600 text-white px-6 py-2 rounded hover:bg-blue-700"
+          className="bg-black text-white px-6 py-2 rounded hover:bg-gray-700"
         >
           Submit Inquiry
         </button>

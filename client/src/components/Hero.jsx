@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import heroAssets from "../assets/heroAssets";
 import { motion, AnimatePresence } from "framer-motion";
+import { useGlobalContext } from "../context/GlobalProvider";
 
 
 const Hero = () => {
@@ -13,6 +14,7 @@ const Hero = () => {
 ]; 
 
 const [currentIndex, setCurrentIndex] = useState(0);
+const {setChatState} = useGlobalContext();
 
   useEffect(() => {
     const interval = setInterval(() => {
@@ -51,7 +53,7 @@ const [currentIndex, setCurrentIndex] = useState(0);
               View Promotions
             </Link>
              <Link
-              to="/chatbot"
+              onClick={()=>setChatState(true)}
               className="border border-white px-6 py-3 rounded-md hover:bg-white hover:text-gray-900 transition"
             >
               chatBot
