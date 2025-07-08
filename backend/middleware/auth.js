@@ -5,7 +5,7 @@ import User from '../models/User.js';
 export const authenticate = async (req, res, next) => {
     try {
         // Get token from cookie or Authorization header
-        const token = req.cookies.userToken || req.headers.authorization?.split(' ')[1];
+        const token = req.cookies.adminToken || req.headers.authorization?.split(' ')[1];
         console.log('Auth token:', token); // Debug log
 
         if (!token) {
@@ -115,19 +115,3 @@ export const authAdmin = async (req, res, next) => {
   }
 };
 
-
-// middleware/auth.js
-// export const authenticate = (req, res, next) => {
-//    const adminToken = req.cookies;
-//   if (!token) return res.status(403).json({ message: 'No token provided' });
-
-//   try {
-//     const decoded = jwt.verify(adminToken, process.env.JWT_SECRET);
-//     req.user = decoded;
-//     next();
-//   } catch (err) {
-
-//     return res.status(401).json({ message: 'Invalid token' });
-
-//   }
-// };

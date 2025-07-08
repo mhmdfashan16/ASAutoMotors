@@ -26,28 +26,24 @@ const PromotionList = () => {
   }, []);
 
   // Handle validate
-  const handleValidate = async (id) => {
-    try {
-      const res = await axios.put(`http://localhost:5000/api/promo/validate/${id}`, {}, {
-        withCredentials: true,
-      });
+  const handleDelete = async (id) => {
+  try {
+    const res = await axios.delete(`http://localhost:5000/api/promo/${id}`, {
+      withCredentials: true,
+    });
 
-      if (res.data.success) {
-        toast.success("Promotion validated");
-        // Update the UI
-        setPromotions((prev) =>
-          prev.map((promo) =>
-            promo._id === id ? { ...promo, isValid: true } : promo
-          )
-        );
-      } else {
-        toast.error(res.data.message || "Failed to validate promotion");
-      }
-    } catch (err) {
-      toast.error("Error validating promotion");
-      console.error(err);
+    if (res.data.success) {
+      toast.success("Promotion deleted");
+      setPromotions((prev) => prev.filter((p) => p._id !== id));
+    } else {
+      toast.error(res.data.message || "Failed to delete promotion");
     }
-  };
+  } catch (err) {
+    toast.error("Error deleting promotion");
+    console.error(err);
+  }
+};
+
 
   return (
     <div className="p-6">
@@ -64,16 +60,23 @@ const PromotionList = () => {
               key={promo._id}
               className="border p-3 rounded flex justify-between items-center"
             >
-              <div>
-                <strong>{promo.title}</strong>
-                <p>Status: {promo.isValid ? "✅ Valid" : "⌛ Pending"}</p>
+              <div className="flex gap-10">
+                <img src={promo.image} alt="" className="max-w-25"/>
+                <div>
+              
+                  <strong className="text-lg">{promo.title}</strong>
+                  <p>Desciption: {promo.description}</p>
+                  <p className="text-green-500">Discount : {promo.discountAmount}%</p>
+                  <p className="text-red-600">Valid Until : {promo.expiredDate}</p>
+                </div>
+
               </div>
               {!promo.isValid && (
                 <button
-                  onClick={() => handleValidate(promo._id)}
-                  className="bg-green-500 text-white px-4 py-1 rounded hover:bg-green-600"
+                  onClick={() => handleDelete(promo._id)}
+                  className="bg-red-500 text-white px-4 py-1 rounded hover:bg-red-600"
                 >
-                  Validate
+                  Delete
                 </button>
               )}
             </li>

@@ -9,7 +9,10 @@ const BookingList = () => {
   // Fetch bookings from backend
   const fetchBookings = async () => {
     try {
-      const res = await axios.get("http://localhost:5000/api/booking/",{withCredentials:true});
+      const res = await axios.get("http://localhost:5000/api/booking/", {
+        withCredentials: true,
+      });
+
       if (res.data.success) {
         setBookings(res.data.bookings);
       } else {
@@ -29,15 +32,21 @@ const BookingList = () => {
 
   const handleDelete = async (id) => {
     try {
-      await axios.delete(`http://localhost:5000/api/booking/${id}`,{withCredentials:true});
+      await axios.delete(`http://localhost:5000/api/booking/${id}`, {
+        withCredentials: true,
+      });
       toast.success("Booking deleted");
-      setBookings(prev => prev.filter(b => b._id !== id));
+      setBookings((prev) => prev.filter((b) => b._id !== id));
     } catch (err) {
       toast.error("Failed to delete booking");
     }
   };
 
-  if (loading) return <div className="p-6 text-gray-600">Loading bookings...</div>;
+  if (loading)
+    return <div className="p-6 text-gray-600">Loading bookings...</div>;
+
+  if (bookings.length === 0)
+    return <div className="p-6 text-gray-500">No bookings found.</div>;
 
   return (
     <div className="p-6">
@@ -61,15 +70,24 @@ const BookingList = () => {
           >
             <div className="w-full md:w-1/4">
               {b.image ? (
-                <img src={b.image} alt="bike" className="h-20 object-contain" />
+                <img
+                  src={Array.isArray(b.image) ? b.image[0] : b.image}
+                  alt="bike"
+                  className="h-20 w-auto object-contain"
+                />
               ) : (
                 <span className="text-sm text-gray-400">No Image</span>
               )}
             </div>
-            <div className="w-full md:w-1/4">{b.customer}</div>
-            <div className="w-full md:w-1/4">{b.product}</div>
-            <div className="w-full md:w-1/4">
-              {new Date(b.date).toLocaleDateString()}
+            <div className="w-full md:w-1/4 mt-2 md:mt-0">
+            <p className="font-bold">{b.customer}</p>
+            <p>+94{b.phone}</p>
+            <p></p>
+
+            </div>
+            <div className="w-full md:w-1/4 mt-2 md:mt-0">{b.productName}</div>
+            <div className="w-full md:w-1/4 mt-2 md:mt-0">
+              {new Date(b.bookingDate).toLocaleDateString()}
             </div>
             <div className="w-full md:w-1/4 mt-2 md:mt-0">
               <button

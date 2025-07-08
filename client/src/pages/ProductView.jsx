@@ -39,26 +39,38 @@ const ProductView = () => {
     setBookingLoading(true);
 
     try {
+
+      console.log("user context:", user);
       // Replace this with actual logged-in user data or from context
       const bookingData = {
-        customer: user.name,  
+        customer: user.name,
+        phone:user.phone,  
         productId: product._id,
         productName: product.name,
-        image:product.image,
+        image: Array.isArray(product.image) ? product.image[0] : product.image,
         bookingDate: new Date().toISOString(),
-      };
+      };     
+
+       
+
+       console.log("Booking data being sent:", bookingData);
 
       const res = await axios.post("http://localhost:5000/api/booking/add", bookingData, {
-        withCredentials: true, // if backend uses cookies for auth
+        withCredentials: true,
       });
 
+        
+
       if (res.data.success) {
-        toast.success("Booking successful!");
-      } else {
-        toast.error(res.data.message || "Booking failed.");
-      }
+        toast.success("Booking successful, your details sent to admin to verify.");
+      } 
+      console.log("Response:", res.data);
     } catch (err) {
-      toast.error(err.response?.data?.message || "Error booking product.");
+    
+  console.error("Full error object:", err);
+  console.error("Error response from backend:", err.response?.data);
+  toast.error(err.response?.data?.message || "Error booking product.");
+
     } finally {
       setBookingLoading(false);
     }
@@ -135,7 +147,7 @@ const ProductView = () => {
               bookingLoading ? "opacity-50 cursor-not-allowed" : ""
             }`}
           >
-            {bookingLoading ? "Booking..." : "Pre Order Now"}
+            {bookingLoading ? "Booking..." : "Book Now"}
           </button>
         </div>
       </div>

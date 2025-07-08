@@ -14,14 +14,14 @@ contuctRouter.post("/", async (req, res) => {
       service: "gmail",
       auth: {
         user: "", 
-        pass: ""  
+        pass: "*******"  
       },
     });
 
     // Email content
     const mailOptions = {
       from: email,
-      to: "mhmdfshn16@gmail.com",
+      to: "mohammedfashan16@gmail.com",
       subject: `New Contact Message from ${name}`,
       html: `
         <h3>New Message Received</h3>

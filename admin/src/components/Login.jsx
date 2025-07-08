@@ -29,12 +29,13 @@ const AdminLogin = () => {
       if (response.data.success ) {
         toast.success("Admin Login Successful");
         naviage('/admin')
-        setAdmin(response.user);
+        setAdmin(response.data);
         setLogin(true);
       } else {
         setError("Invalid admin credentials");
         toast.error("Access denied");
       }
+   
     } catch (err) {
       const msg = err.response?.data?.message || "Login failed";
       setError(msg);

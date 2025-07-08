@@ -16,7 +16,7 @@ adminRouter.post('/login',login);
 adminRouter.get('/logout',logout);
 
 // Admin verification route
-adminRouter.get('/verify', authAdmin);
+adminRouter.get('/verify', authenticate);
 
 // Admin dashboard routes
 adminRouter.get('/dashboard', getDashboardStats);

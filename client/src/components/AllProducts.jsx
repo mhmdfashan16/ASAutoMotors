@@ -49,7 +49,7 @@ const AllProducts = () => {
           {products.map((product) => (
             <div
               key={product._id}
-              className="flex bg-gray-400 shadow-md rounded-xl overflow-hidden hover:shadow-lg transition cursor-pointer"
+              className="flex bg-gray-300 shadow-md rounded-xl overflow-hidden hover:shadow-xl  hover:border-gray-500 transition cursor-pointer"
               onClick={() => navigate(`/product/${product._id}`)}
             >
               <div className="p-2">

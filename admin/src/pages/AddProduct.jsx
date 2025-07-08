@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import axios from "axios";
 import toast from "react-hot-toast";
+import upload_area from "../assets/upload_area.png";
 
 const AddProduct = () => {
   const [form, setForm] = useState({
@@ -20,6 +21,7 @@ const AddProduct = () => {
     if (name === "image") {
       const file = files[0];
       setForm({ ...form, image: file });
+
       if (file) {
         setImagePreview(URL.createObjectURL(file));
       } else {
@@ -77,14 +79,28 @@ const AddProduct = () => {
         <input type="text" name="specifications" placeholder="Specifications" value={form.specifications} onChange={handleChange} className="w-full p-2 border border-gray-300 rounded shadow-sm" required />
         <input type="number" name="price" placeholder="Price" value={form.price} onChange={handleChange} className="w-full p-2 border border-gray-300 rounded shadow-sm" required />
 
-        <input type="file" name="image" accept="image/*" onChange={handleChange} className="w-full p-2 border border-gray-300 rounded shadow-sm" required />
+        {/* ✅ Upload area using label & image */}
+        <div>
+          <label htmlFor="productImage" className="block font-semibold mb-1">
+            Product Image
+          </label>
 
-        {/* Show image preview */}
-        {imagePreview && (
-          <div className="mt-2">
-            <img src={imagePreview} alt="Preview" className="h-48 rounded border border-gray-300" />
-          </div>
-        )}
+          <label htmlFor="productImage" className="inline-block cursor-pointer">
+            <input
+              type="file"
+              id="productImage"
+              name="image"
+              accept="image/*"
+              hidden
+              onChange={handleChange}
+            />
+            <img
+              src={imagePreview || upload_area}
+              alt="Product Upload"
+              className="h-40 w-full border-none rounded object-contain"
+            />
+          </label>
+        </div>
 
         <button type="submit" className="bg-blue-600 text-white px-6 py-2 rounded hover:bg-blue-700">
           Add Product

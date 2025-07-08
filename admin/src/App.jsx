@@ -14,6 +14,7 @@ import { Toaster } from "react-hot-toast";
 import Admin from "./components/Admin";
 import { useState } from "react";
 import { useAdminContext } from "./context/AdminContext";
+import AddPromotion from "./pages/AddPromotion";
 
 
 const AdminApp = () => {
@@ -36,6 +37,7 @@ const AdminApp = () => {
           <Route path="/admin/products" element={<Hero><ProductList /></Hero>} />
           <Route path="/admin/inquiries" element={<Hero><InquiryList /></Hero>} />
           <Route path="/admin/promotions" element={<Hero><PromotionList /></Hero>} />
+          <Route path="/admin/add-promotion" element={<Hero><AddPromotion/></Hero>}/>
           <Route path="/admin/bookings" element={<Hero><BookingList /></Hero>} />
        
         </Routes>

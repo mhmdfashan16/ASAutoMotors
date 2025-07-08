@@ -12,7 +12,7 @@ const router = express.Router();
 
 // Admin protected routes
 router.get('/', getPromos);
-router.post('/add', authAdmin,upload.single('image'), addPromo);
-router.delete('/:id', authenticate, authorizeAdmin, deletePromo);
+router.post('/add', authAdmin,upload.single('file'), addPromo);
+router.delete('/:id', authAdmin, deletePromo);
 
 export default router;

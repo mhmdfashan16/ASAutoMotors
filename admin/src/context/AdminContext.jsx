@@ -1,6 +1,5 @@
 import React, { createContext, useContext, useState, useEffect } from "react";
 import axios from "axios";
-import toast from "react-hot-toast";
 
 
 const AdminContext = createContext();
@@ -29,6 +28,7 @@ export const AdminProvider = ({ children }) => {
         } else {
           setAdmin(null);
         }
+        console.log(data.user);
       } catch (err) {
         setAdmin(null);
       } finally {

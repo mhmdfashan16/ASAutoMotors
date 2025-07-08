@@ -54,7 +54,7 @@ const {setChatState} = useGlobalContext();
             </Link>
              <Link
               onClick={()=>setChatState(true)}
-              className="border border-white px-6 py-3 rounded-md hover:bg-white hover:text-gray-900 transition"
+              className="border border-white px-6 bg-gray-900 py-3 rounded-md hover:bg-white hover:text-gray-900 transition"
             >
               chatBot
             </Link>

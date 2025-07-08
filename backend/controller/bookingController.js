@@ -17,29 +17,69 @@ import Booking from "../models/Booking.js";
 //   }
 // };
 
+// export const addBooking = async (req, res) => {
+//   try {
+//     const { customer, productId, productName, bookingDate } = req.body;
+
+//      let imageUrl = '';
+//             if (req.file) {
+//                 const result = await cloudinary.uploader.upload(req.file.path, {
+//                     folder: 'as_auto_motors',
+//                     use_filename: true
+//                 });
+//                 imageUrl = result.secure_url;
+//             }
+
+//     if (!customer || !productId || !bookingDate) {
+//       return res.status(400).json({ success: false, message: "Missing required fields" });
+//     }
+
+//     const newBooking = new Booking({
+//       customer,
+//       product: productId,
+//       productName,
+//       imageUrl,
+//       bookingDate,
+//     });
+
+//     await newBooking.save();
+//     res.status(201).json({ success: true, booking: newBooking });
+//   } catch (error) {
+//     console.error("Booking creation error:", error);
+//     res.status(500).json({ success: false, message: "Server error while creating booking" });
+//   }
+// };
+
+// POST /api/booking/add
 export const addBooking = async (req, res) => {
+  const { customer, productId, productName, image, bookingDate, phone } = req.body;
+  console.log("Received booking data:", req.body);
+
+  if (!customer || !productId || !productName || !bookingDate) {
+    console.log("Missing required booking data");
+    return res.status(400).json({ success: false, message: "Missing booking data" });
+  }
+
   try {
-    const { customer, productId, productName, bookingDate, image } = req.body;
-
-    if (!customer || !productId || !bookingDate) {
-      return res.status(400).json({ success: false, message: "Missing required fields" });
-    }
-
-    const newBooking = new Booking({
+    const booking = new Booking({
       customer,
-      product: productId,
+      phone,
+      productId,
       productName,
       image,
       bookingDate,
     });
 
-    await newBooking.save();
-    res.status(201).json({ success: true, booking: newBooking });
-  } catch (error) {
-    console.error("Booking creation error:", error);
-    res.status(500).json({ success: false, message: "Server error while creating booking" });
+    await booking.save();
+    
+
+    res.status(201).json({ success: true, message: "Booking successful", booking });
+  } catch (err) {
+    console.error("❌ Error saving booking:", err.message);
+    res.status(500).json({ success: false, message: "Booking failed" });
   }
 };
+
 
 // Get all bookings
 export const getBookings = async (req, res) => {
