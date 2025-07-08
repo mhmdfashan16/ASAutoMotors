@@ -74,12 +74,13 @@ const PromotionPage = () => {
         <img
           src={promo.image}
           alt={promo.title}
-          className="w-full h-64 sm:h-80 lg:h-full object-cover"
+          className="w-full h-64 sm:h-80 lg:h-160 object-cover"
         />
       </div>
 
       {/* Content Section */}
       <div className="w-full lg:w-1/2 py-6 px-6 sm:px-10 text-white text-left space-y-3">
+        <h3 className="text-2xl sm:text-3xl lg:text-4xl font-bold">{promo.discountAmount}% Discount</h3>
         <h3 className="text-2xl sm:text-3xl lg:text-4xl font-bold">{promo.title}</h3>
         <p className="text-base sm:text-lg">{promo.description}</p>
         <p className="text-sm sm:text-base text-red-400 font-medium">
@@ -92,7 +93,7 @@ const PromotionPage = () => {
     <div className="absolute top-1/2 left-0 transform -translate-y-1/2 z-10">
       <button
         onClick={handlePrev}
-        className="bg-black bg-opacity-20 p-1 rounded-r hover:bg-opacity-40 transition"
+        className=" bg-opacity-20 p-1 rounded-r hover:bg-opacity-40 transition"
       >
         <img src={assets.back_icon} alt="Prev" className="w-8 sm:w-10 opacity-40 hover:opacity-80" />
       </button>
@@ -100,7 +101,7 @@ const PromotionPage = () => {
     <div className="absolute top-1/2 right-0 transform -translate-y-1/2 z-10">
       <button
         onClick={handleNext}
-        className="bg-black bg-opacity-20 p-1 rounded-l hover:bg-opacity-40 transition"
+        className="bg-opacity-20 p-1 rounded-l hover:bg-opacity-40 transition"
       >
         <img src={assets.next_icon} alt="Next" className="w-8 sm:w-10 opacity-40 hover:opacity-80" />
       </button>
