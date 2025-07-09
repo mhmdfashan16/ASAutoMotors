@@ -68,7 +68,7 @@ function App() {
   onClick={() => setChatState(true)}
 >
   <span className="absolute w-20 h-20 rounded-full bg-gray-800 opacity-75 animate-ping"></span>
-  <img src={assets.chatbot} alt="Chatbot" className="w-20 relative z-10" />
+  <img src={assets.chatbot} alt="Chatbot" className="w-10 lg:w-20 md:w-15 sm:w-10 relative z-10" />
 </div>
 
       <Footer />

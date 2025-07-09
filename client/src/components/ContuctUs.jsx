@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import axios from 'axios'
+import toast from "react-hot-toast";
 
 const ContactUs = () => {
   const [formData, setFormData] = useState({
@@ -18,34 +19,35 @@ const ContactUs = () => {
     }));
   };
 
-  // const handleSubmit = (e) => {
-  //   e.preventDefault();
+  const handleSubmit = (e) => {
+    e.preventDefault();
 
-  //   // Simulate sending data
-  //   console.log("Contact form submitted:", formData);
+    // Simulate sending data
+    console.log("Contact form submitted:", formData);
 
-  //   // Reset form and show message
-  //   setFormData({ name: "", email: "", message: "" });
-  //   setSubmitted(true);
+    // Reset form and show message
+    setFormData({ name: "", email: "", message: "" });
+    setSubmitted(true);
+    toast.success("Message sent successfully");
 
-  //   // Hide success message after 4 seconds
-  //   setTimeout(() => setSubmitted(false), 4000);
-  // };
+    // Hide success message after 4 seconds
+    setTimeout(() => setSubmitted(false), 2000);
+  };
 
-  const handleSubmit = async (e) => {
-  e.preventDefault();
-  try {
-    const response = await axios.post("/api/contuct/", formData); // Axios call
-    if (response.data.success) {
-      setFormData({ name: "", email: "", message: "" });
-      setSubmitted(true);
-      setTimeout(() => setSubmitted(false), 4000);
-    }
-  } catch (error) {
-    console.error("Error sending message:", error);
-    alert("Failed to send message. Please try again later.");
-  }
-};
+//   const handleSubmit = async (e) => {
+//   e.preventDefault();
+//   try {
+//     const response = await axios.post("/api/contuct/", formData); // Axios call
+//     if (response.data.success) {
+//       setFormData({ name: "", email: "", message: "" });
+//       setSubmitted(true);
+//       setTimeout(() => setSubmitted(false), 4000);
+//     }
+//   } catch (error) {
+//     console.error("Error sending message:", error);
+//     alert("Failed to send message. Please try again later.");
+//   }
+// };
 
   return (
     <div className="max-w-3xl mx-auto px-4 py-10">

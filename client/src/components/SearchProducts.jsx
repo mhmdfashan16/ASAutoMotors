@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
+import { useNavigate } from "react-router-dom";
 
 const SearchProducts = () => {
   const [allProducts, setAllProducts] = useState([]);
@@ -11,6 +12,7 @@ const SearchProducts = () => {
 
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
+  const navigate = useNavigate();
 
   // Fetch all products from backend
   useEffect(() => {
@@ -105,6 +107,7 @@ const SearchProducts = () => {
             <div
               key={product._id}
               className="bg-white shadow-md rounded-xl overflow-hidden hover:shadow-lg transition"
+              onClick={() => navigate(`/product/${product._id}`)}
             >
               <img
                 src={product.image}
